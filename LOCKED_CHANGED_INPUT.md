@@ -1,6 +1,6 @@
 # Project 2 | Changed-Input Record
 
-**Status:** Pre-run protocol saved. The lock is pending Kayla's AI-off prediction and GitHub commit. Replay results are pending.
+**Status:** Kayla adopted the AI-assisted prediction below before running the replay. The local pre-run commit is saved. The GitHub lock and replay remain pending.
 
 ## Decision and changed input
 
@@ -17,18 +17,37 @@ Use the first 23 monthly returns to fit weights in place of the 59-return fit. E
 - Show the proposed pilot weights using 25% of the replay-fit allocation and 75% equal weight. Report the checks supported by those weights, including the LQD and TLT share, and identify any applicable mandate decisions still open.
 - In a live pilot, compare each month's newly proposed optimizer weights with the prior proposal. Refer any absolute change greater than 15 percentage points in a fund to the committee.
 
-## AI-off prediction | Kayla completes before running
+## Locked Changed-Input Record — prediction
 
-| Portfolio | Predicted annualized net return | Predicted annualized volatility |
-|---|---|---|
-| Constrained | | |
-| Equal weight | | |
+Committed locally: 2026-11-17T17:16:38-05:00 before running the 23/36 replay.
 
-- Qualifying fit expected
-- 8% return veto expected to trigger
-- Relative-volatility veto expected to trigger
-- Predicted decision and reason
-- Pre-run GitHub commit link
+AI use: this prediction was drafted by Claude (Anthropic) at my request after the
+course allowed AI help; the replay had not been run. I reviewed it and adopt it as my locked prediction.
+
+Replay: weights fitted on first 23 monthly returns (Nov 2021–Sep 2023); held over
+last 36 (Oct 2023–Sep 2026), monthly rebalance to fixed targets, 10 bps on turnover
+including the initial trade. Geometric annualized net return; sample stdev × √12.
+
+| Portfolio | Predicted net return (ann.) | Predicted volatility (ann.) |
+|---|---:|---:|
+| Constrained mix | 12% (range 9–15%) | 15% (range 12–18%) |
+| Equal weight | 14% (range 13–15%) | 10% (range 9–11%) |
+
+- Qualifying 23-month mix found? Yes
+- Predicted weights: about 20–25% LQD (the floor, little or no TLT), heavy XLE and EWZ (together 50–65%), small QQQ/FBMPX.
+- Veto 1 (constrained net return < 8%): does not trigger
+- Veto 2 (constrained vol >= equal-weight vol): triggers
+- Resulting vote: hold at 100% equal weight
+
+Reasoning: The first 23 months include the 2022 rate shock, so LQD, TLT, QQQ and
+FBMPX all show weak or negative averages, while energy (XLE) and Brazil (EWZ) look
+strong. To clear 8% with a 20% bond floor, the optimizer must lean on XLE and EWZ —
+volatile, concentrated funds — and it underweights QQQ and FBMPX, the strongest
+funds afterward. The mix should still clear 8%, but equal weight's broad spread
+had only ~10% volatility over the last 36 months, so I expect the constrained
+mix to be riskier, which fails the claim.
+
+Pre-run GitHub commit link: pending.
 
 ## Replay record | Complete after the prediction is committed
 
