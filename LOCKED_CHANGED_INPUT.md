@@ -1,6 +1,6 @@
 # Project 2 | Changed-Input Record
 
-**Status:** The prediction below supersedes the earlier version and is the one to use for the replay. The local pre-run commit is saved. The GitHub lock and replay remain pending.
+**Status:** The prediction below supersedes the earlier version and is the one to use for the replay. The prediction was saved locally at `f6a0689` before the run. The replay has been completed under that local lock. The GitHub pre-run link remains unresolved.
 
 ## Decision and changed input
 
@@ -46,6 +46,28 @@ mix to be riskier, which fails the claim.
 
 Pre-run GitHub commit link: pending.
 
-## Replay record | Complete after the prediction is committed
+## Replay result | November 17, 2026
 
-Record the run command, training and evaluation dates, qualifying mix count, weights, both portfolios' outcome measures, the net-return gap, pilot mandate checks, and the committee decision. Compare the results with the prediction.
+Run `python replay.py` from the repository root after installing the pinned dependencies. The fit used November 2021–September 2023 and the evaluation used October 2023–September 2026. Rebalances occur before each month's return. Execution costs reduce beginning-of-month value, with no terminal liquidation. A separate calculation verified net return, volatility and the blend's training-period return.
+
+**The replay passed both vetoes. Pilot funding remains conditional on mandate clearance.** The optimizer found 4,964 qualifying mixes out of 53,130. The winner's estimated training return was 8.3060% and its estimated training volatility was 17.2810%.
+
+| Portfolio | Annualized net return | Annualized volatility |
+|---|---:|---:|
+| Constrained mix | 11.3370% | 9.4545% |
+| Equal weight | 15.6934% | 9.9588% |
+
+The constrained mix cleared the 8% hurdle and was 0.5043 percentage points less volatile. Its net return trailed equal weight by 4.3565 percentage points using unrounded results. The pre-specified rules report that gap without treating it as a veto.
+
+| Fund | Constrained fit | Equal weight | Proposed 25/75 pilot |
+|---|---:|---:|---:|
+| QQQ | 10.0% | 16⅔% | 15.0% |
+| XLE | 40.0% | 16⅔% | 22.5% |
+| EWZ | 0.0% | 16⅔% | 12.5% |
+| LQD | 50.0% | 16⅔% | 25.0% |
+| TLT | 0.0% | 16⅔% | 12.5% |
+| FBMPX | 0.0% | 16⅔% | 12.5% |
+
+**Pilot mandate check.** The blend is long-only and sums to 100%. Its 37.50% bond weight clears the 20% floor. Its training-period estimated return is 3.4864%, below 8%. If the 8% estimated-return screen applies to the funded sleeve as a whole, the blend fails that screen and funding should remain on hold. Confirm that scope before funding. The later-period return hurdle was tested on the constrained mix under the locked rules. Expansion still requires a genuinely unseen test.
+
+**Prediction comparison.** A qualifying fit and a return above 8% were correctly predicted. The constrained net return was within the predicted range. Its volatility was below the predicted range and below equal weight's, reversing the predicted volatility veto. Equal weight's volatility was within the predicted range and its net return exceeded the predicted range. The fitted portfolio held 50% LQD and zero EWZ, differing from the predicted 20–25% LQD and 50–65% combined XLE and EWZ.
