@@ -4,7 +4,9 @@ Kayla Holliger · FIN 43900 · Purdue
 
 AI assisted with repository assembly and validation. This work is for education, not investment advice.
 
-**Proposed committee decision: approve the frozen data for a classroom demonstration and hold PAYEMS admission to Project 2.** The historical checks establish what is visible in the captured vintages at a date cutoff. A trading or portfolio decision requires additional evidence.
+**Portfolio committee decision: keep pilot funding on hold until the mandate scope is confirmed.** The constrained mix passed the historical replay. The proposed 25/75 funded blend clears the bond floor and falls below the 8% training-period return screen if that screen applies to the whole sleeve. [Committee decision](DECISION.md#portfolio-pilot-decision) · [Locked prediction and replay](LOCKED_CHANGED_INPUT.md)
+
+The frozen PAYEMS data are approved for classroom demonstration. PAYEMS admission to Project 2 remains on hold pending eligibility and decision-use evidence. [PAYEMS decision](DECISION.md#payems-data-decision)
 
 ## Run from a clean checkout
 

@@ -2,6 +2,16 @@
 
 AI assisted with repository assembly and validation. This work is for education, not investment advice.
 
+## Portfolio pilot decision
+
+**Action.** Keep funding on hold pending confirmation of whether the 8% estimated-return screen applies to the funded sleeve. If the screen applies to the full sleeve, the proposed 25/75 pilot fails. If the screen applies only to the constrained allocation and the blend clears the remaining mandate checks, the historical replay supports starting at 25%. Expansion toward 50% requires a genuinely unseen test.
+
+**Changed input and result.** Run `python replay.py` after README setup. The fit uses the first 23 monthly returns in place of the full 59. Over the following 36 months, the constrained mix earned 11.34% annualized after costs at 9.45% volatility, versus 15.69% at 9.96% for equal weight. The two locked vetoes were less than 8% net return and volatility at least as high as equal weight. Neither triggered. The proposed blend clears the 20% bond floor at 37.50% and has a training-period return estimate of 3.49%. [Locked prediction and replay](LOCKED_CHANGED_INPUT.md)
+
+**Monitor and reversal.** If funded, compare each month's proposed optimizer weights with the prior proposal. A move greater than 15 percentage points in any fund triggers committee review. A binding mandate failure blocks funding or continued use.
+
+## PAYEMS data decision
+
 **Riskiest claim:** The historical demo uses PAYEMS values available in the selected ALFRED vintage, including only publications allowed by the date convention. Choosing the wrong vintage can introduce look-ahead bias, where a historical decision benefits from information released later.
 
 | Link in the chain | Reviewer evidence |
