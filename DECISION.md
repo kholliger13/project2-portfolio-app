@@ -4,14 +4,14 @@ AI assisted with repository assembly and validation. This work is for education,
 
 ## Portfolio pilot decision
 
-**Action.** Hold funding and ask the committee or instructor to confirm the scope of the 8% estimated-return screen. I recommend applying the screen to the sleeve the committee would actually fund.
+I'm holding funding on my Project 2 recommendation until one mandate question is confirmed: does the 8% estimated-return screen apply to the whole funded sleeve, or only to the constrained allocation?
 
-| Reading | Decision implication |
-|---|---|
-| Allocation-level | The constrained allocation estimates 8.31% on the 23-month fit and passes both replay vetoes. A 25% pilot could proceed if the remaining sleeve checks pass. Expansion toward 50% still requires a genuinely unseen test. |
-| Sleeve-level | The proposed 25/75 blend estimates 3.49%, and the equal-weight fallback estimates 1.88% on the same fit. Both fail the return screen. A 50/50 blend estimates 5.09%. Reaching 8% would require about 95% in the constrained mix, outside the proposed pilot range. |
+The answer decides the outcome:
 
-All four allocations clear the 20% LQD and TLT floor on the fit weights. The earlier 10.00% equal-weight estimate used the full 59-month window.
+- Allocation-level: the constrained allocation passes at 8.31% on the 23-month fit and cleared both locked replay vetoes, so the 25% pilot stands.
+- Sleeve-level: the 25/75 pilot (3.49%), the equal-weight fallback (1.88%), and a 50/50 blend (5.09%) all fail the return screen, though all clear the 20% bond floor. A blend would need at least 95.24% in the constrained allocation to pass, which is outside the pilot range.
+
+Expansion toward 50% still requires a genuinely unseen test. The earlier 10.00% equal-weight estimate used the full 59-month window.
 
 **Changed input and result.** Run `python replay.py` after README setup. The fit uses the first 23 monthly returns in place of the full 59. Over the following 36 months, the constrained mix earned 11.34% annualized after costs at 9.45% volatility, versus 15.69% at 9.96% for equal weight. The two locked vetoes were less than 8% net return and volatility at least as high as equal weight. Neither triggered. The proposed blend clears the 20% bond floor at 37.50% and has a training-period return estimate of 3.49%. [Locked prediction and replay](LOCKED_CHANGED_INPUT.md)
 
