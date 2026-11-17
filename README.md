@@ -2,6 +2,8 @@
 
 Kayla Holliger · FIN 43900 · Purdue
 
+AI assisted with repository assembly and validation. This work is for education, not investment advice.
+
 **Proposed committee decision: approve the frozen data for a classroom demonstration and hold PAYEMS admission to Project 2.** The historical checks establish what is visible in the captured vintages at a date cutoff. A trading or portfolio decision requires additional evidence.
 
 ## Run from a clean checkout
@@ -23,16 +25,20 @@ The last command prints the three Meridian baselines, then verifies both portfol
 | Rates and PAYEMS | `python -m streamlit run rates_app.py` | Use the default October 4, 2024 cutoff. In the PAYEMS tab, compare the default date with and without same-day publications. |
 | Live comparison, optional | `python -m streamlit run asof_app.py` | Compare current FRED data with a historical ALFRED vintage. The app requires internet access. Its test in `review.sh` uses controlled responses. |
 
-Stop each Streamlit server with Ctrl+C. Keep the default historical dates and avoid the refresh button for the frozen rates demo. Uncached or refreshed vintages need internet access. `prices.csv` is the frozen Lab 14 input.
+Stop each Streamlit server with Ctrl+C. Keep the default historical dates and avoid the refresh button for the frozen rates demo. Uncached or refreshed vintages need internet access. `prices.csv` is the frozen input for the six-fund portfolio app.
 
 ## Work and evidence
 
-| Work | Implementation and evidence |
-|---|---|
-| Lab 13 | [Meridian baseline write-up](evidence/Lab13_meridian_baselines.md), [baseline script](lab13_baselines.py), [common case](evidence/meridian_foundation_common_case.md) |
-| Lab 14 | [Portfolio app](app.py), [shared engine](portfolio.py), [window comparison](evidence/Lab14_portfolio_app_2026_10_22.md), [reviewer regression check](verify_portfolio_app.py) |
-| Lab 15 | [Classroom fixture and decisions](Lab15_known_answer_provenance_2026_03_31.md), [gate](asof.py), [PAYEMS vintage reconstruction](payems_point_in_time.py), [individual submission](evidence/Lab15_KaylaHolliger_individual_submission.md) |
-| Later work | [Current-versus-as-of explorer](asof_app.py), [PAYEMS data card](evidence/PAYEMS_data_card_2026_10_29.md), [rates app](rates_app.py), [Project 2 review](evidence/Rates_app_Project2_review_2026_10_29.md). The available materials do not establish the individual Lab 16–19 assignments or completion. |
+The Week 12 handout supplies the mapping below. Earlier filenames retain their original labels.
+
+| Project 2 component | Studio mapping | Available evidence |
+|---|---|---|
+| Mandate, hard constraints and client question | Lab 13 and your own mandate | [Meridian common case](evidence/meridian_foundation_common_case.md), [mandate checker](mandate.py). Confirm the final client question and mandate. |
+| Baselines and mandate check | Lab 14 | [Meridian baselines](evidence/Lab13_meridian_baselines.md), [baseline script](lab13_baselines.py) |
+| Portfolio app, constrained search and stress run | Lab 15 | [App](app.py), [shared engine](portfolio.py), [window comparison](evidence/Lab14_portfolio_app_2026_10_22.md), [verification](verify_portfolio_app.py). Confirm the final product's mandate verdicts and required stress run against the Project 2 instructions. |
+| Point-in-time rule and data card | Labs 16 and 17 | [Classroom fixture](Lab15_known_answer_provenance_2026_03_31.md), [gate](asof.py), [PAYEMS reconstruction](payems_point_in_time.py), [data card](evidence/PAYEMS_data_card_2026_10_29.md), [rates app](rates_app.py) |
+| Locked Changed-Input Record | Lab 11 pattern, applied to one Project 2 input | Unresolved. The existing window comparison documents sensitivity. Confirm the required record format in the Project 2 instructions. |
+| Submission bundle | Project 2 page and submission architecture | [Week 12 studio notes](STUDIO.md). Final manifest and delivery links are unresolved. |
 
 Read the [claim and decision](DECISION.md), [SR 26-2 model validation review](MODEL_VALIDATION.md), [three video briefs](VIDEOS.md), and [frozen must-fix list](MUST_FIX.md). Historical write-ups retain their original paths and instructions. Use the commands above for this checkout.
 

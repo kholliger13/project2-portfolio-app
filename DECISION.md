@@ -1,5 +1,7 @@
 # Claim, evidence and committee decision
 
+AI assisted with repository assembly and validation. This work is for education, not investment advice.
+
 **Riskiest claim:** The historical demo uses PAYEMS values available in the selected ALFRED vintage, including only publications allowed by the date convention. Choosing the wrong vintage can introduce look-ahead bias, where a historical decision benefits from information released later.
 
 | Link in the chain | Reviewer evidence |

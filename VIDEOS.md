@@ -1,12 +1,14 @@
 # Three recording briefs
 
+Open each recording with an accurate AI disclosure. For example, “AI assisted with preparation and validation. This presentation is for education, not investment advice.”
+
 ## 1. How it changed
 
 **Audience:** Course reviewer. **Show:** The baseline table, then the two portfolio windows side by side.
 
 - Start with Lab 13. The benchmark clears the 6.5% modeled return objective and misses the 3% reserve floor. The other two baselines clear the floor and miss the return objective.
 - Move to Lab 14. Keep its separate 8% objective and 20% reserve floor fixed. Switch from all 59 monthly returns to the last 36. LQD rises from 55% to 80%.
-- Close with the change in the work. A static baseline comparison became an app that makes the assumptions and sensitivity visible. The vintage work later added a check on which inputs were knowable on the decision date.
+- Close with the change in the work. A static baseline comparison became an app that makes the assumptions and sensitivity visible. The vintage work later added a check on which inputs were knowable on the decision date. Name one AI output you personally checked, describe your check, and say what you concluded.
 
 ## 2. Technical walkthrough
 
@@ -22,6 +24,6 @@
 
 - Lead with the vote. Approve the frozen classroom demo and hold PAYEMS for Project 2.
 - Give one reason to approve and one reason to hold. The vintage boundary is reproducible, and the assignment eligibility and decision-use evidence are pending.
-- State what would reopen the decision. Confirm the permitted series, required sample and decision timing. If PAYEMS qualifies, show evidence appropriate to the intended use. Treat the portfolio window comparison as sensitivity evidence and defer allocation approval.
+- Name the decision condition, what you would monitor, and what would reverse the decision. State what would reopen the decision. Confirm the permitted series, required sample and decision timing. If PAYEMS qualifies, show evidence appropriate to the intended use. Treat the portfolio window comparison as sensitivity evidence and defer allocation approval.
 
 These briefs are ready for recording. Submission links can be added once the three recordings exist.
