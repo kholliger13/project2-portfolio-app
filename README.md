@@ -34,6 +34,6 @@ Stop each Streamlit server with Ctrl+C. Keep the default historical dates and av
 | Lab 15 | [Classroom fixture and decisions](Lab15_known_answer_provenance_2026_03_31.md), [gate](asof.py), [PAYEMS vintage reconstruction](payems_point_in_time.py), [individual submission](evidence/Lab15_KaylaHolliger_individual_submission.md) |
 | Later work | [Current-versus-as-of explorer](asof_app.py), [PAYEMS data card](evidence/PAYEMS_data_card_2026_10_29.md), [rates app](rates_app.py), [Project 2 review](evidence/Rates_app_Project2_review_2026_10_29.md). The available materials do not establish the individual Lab 16–19 assignments or completion. |
 
-Read the [claim and decision](DECISION.md), [three video briefs](VIDEOS.md), and [frozen must-fix list](MUST_FIX.md). Historical write-ups retain their original paths and instructions. Use the commands above for this checkout.
+Read the [claim and decision](DECISION.md), [SR 26-2 model validation review](MODEL_VALIDATION.md), [three video briefs](VIDEOS.md), and [frozen must-fix list](MUST_FIX.md). Historical write-ups retain their original paths and instructions. Use the commands above for this checkout.
 
 Educational work with AI assistance. The Meridian and classroom fixtures use supplied training inputs.
