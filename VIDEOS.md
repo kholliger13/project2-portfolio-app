@@ -22,8 +22,8 @@ Open each recording with an accurate AI disclosure. For example, “AI assisted 
 
 **Audience:** An investment committee. **Show:** The decision and must-fix list.
 
-- Lead with the vote. Approve the frozen classroom demo and hold PAYEMS for Project 2.
-- Give one reason to approve and one reason to hold. The vintage boundary is reproducible, and the assignment eligibility and decision-use evidence are pending.
-- Name the decision condition, what you would monitor, and what would reverse the decision. State what would reopen the decision. Confirm the permitted series, required sample and decision timing. If PAYEMS qualifies, show evidence appropriate to the intended use. Treat the portfolio window comparison as sensitivity evidence and defer allocation approval.
+- Lead with the vote. Hold pilot funding until the committee or instructor confirms which portfolio the 8% estimate screens. Recommend applying it to the funded sleeve.
+- Show the replay result and the funding check. The constrained mix passed both replay vetoes. On the same 23-month fit, the 25/75 blend estimates 3.49% and the equal-weight fallback 1.88%. The pilot and fallback both fail if the screen applies to the sleeve.
+- State what would reopen the decision. If the screen applies to the constrained allocation and the remaining sleeve checks pass, start at 25%. Review any proposed fund weight change above 15 percentage points. A binding mandate failure blocks funding or continued use.
 
 These briefs are ready for recording. Submission links can be added once the three recordings exist.

@@ -4,7 +4,14 @@ AI assisted with repository assembly and validation. This work is for education,
 
 ## Portfolio pilot decision
 
-**Action.** Keep funding on hold pending confirmation of whether the 8% estimated-return screen applies to the funded sleeve. If the screen applies to the full sleeve, the proposed 25/75 pilot fails. If the screen applies only to the constrained allocation and the blend clears the remaining mandate checks, the historical replay supports starting at 25%. Expansion toward 50% requires a genuinely unseen test.
+**Action.** Hold funding and ask the committee or instructor to confirm the scope of the 8% estimated-return screen. I recommend applying the screen to the sleeve the committee would actually fund.
+
+| Reading | Decision implication |
+|---|---|
+| Allocation-level | The constrained allocation estimates 8.31% on the 23-month fit and passes both replay vetoes. A 25% pilot could proceed if the remaining sleeve checks pass. Expansion toward 50% still requires a genuinely unseen test. |
+| Sleeve-level | The proposed 25/75 blend estimates 3.49%, and the equal-weight fallback estimates 1.88% on the same fit. Both fail the return screen. A 50/50 blend estimates 5.09%. Reaching 8% would require about 95% in the constrained mix, outside the proposed pilot range. |
+
+All four allocations clear the 20% LQD and TLT floor on the fit weights. The earlier 10.00% equal-weight estimate used the full 59-month window.
 
 **Changed input and result.** Run `python replay.py` after README setup. The fit uses the first 23 monthly returns in place of the full 59. Over the following 36 months, the constrained mix earned 11.34% annualized after costs at 9.45% volatility, versus 15.69% at 9.96% for equal weight. The two locked vetoes were less than 8% net return and volatility at least as high as equal weight. Neither triggered. The proposed blend clears the 20% bond floor at 37.50% and has a training-period return estimate of 3.49%. [Locked prediction and replay](LOCKED_CHANGED_INPUT.md)
 

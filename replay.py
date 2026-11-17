@@ -74,6 +74,17 @@ def main():
     blend_return = blend @ estimated_returns
     print(f"Blend: total weight {blend.sum():.4%}, long-only {bool((blend >= 0).all())}, "
           f"bond weight {blend_reserve:.4%}, training return estimate {blend_return:.4%}")
+    equal_estimate = equal @ estimated_returns
+    halfway = (target + equal) / 2
+    halfway_return = halfway @ estimated_returns
+    halfway_reserve = halfway.loc[sorted(RESERVE_ELIGIBLE)].sum()
+    print(f"Equal weight screen: bond weight {equal.loc[sorted(RESERVE_ELIGIBLE)].sum():.4%}, "
+          f"training return estimate {equal_estimate:.4%}")
+    print(f"50/50 blend: bond weight {halfway_reserve:.4%}, "
+          f"training return estimate {halfway_return:.4%}")
+    if equal_estimate < OBJECTIVE:
+        required_share = (OBJECTIVE - equal_estimate) / (fit["return"] - equal_estimate)
+        print(f"Constrained share needed for the 8% sleeve screen: {required_share:.4%}")
     if return_veto or risk_veto:
         print("HOLD: replay failed. Keep equal weight as the fallback subject to policy.")
     else:

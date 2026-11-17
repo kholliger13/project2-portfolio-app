@@ -4,7 +4,7 @@ Kayla Holliger · FIN 43900 · Purdue
 
 AI assisted with repository assembly and validation. This work is for education, not investment advice.
 
-**Portfolio committee decision: keep pilot funding on hold until the mandate scope is confirmed.** The constrained mix passed the historical replay. The proposed 25/75 funded blend clears the bond floor and falls below the 8% training-period return screen if that screen applies to the whole sleeve. [Committee decision](DECISION.md#portfolio-pilot-decision) · [Locked prediction and replay](LOCKED_CHANGED_INPUT.md)
+**Portfolio committee decision: keep pilot funding on hold until the mandate scope is confirmed.** The constrained mix passed the historical replay. If the 8% screen applies to the whole sleeve, both the proposed 25/75 pilot (3.49%) and the equal-weight fallback (1.88%) fail on the 23-month estimates. [Committee decision](DECISION.md#portfolio-pilot-decision) · [Locked prediction and replay](LOCKED_CHANGED_INPUT.md)
 
 The frozen PAYEMS data are approved for classroom demonstration. PAYEMS admission to Project 2 remains on hold pending eligibility and decision-use evidence. [PAYEMS decision](DECISION.md#payems-data-decision)
 
