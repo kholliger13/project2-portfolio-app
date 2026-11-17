@@ -20,7 +20,7 @@ from portfolio_core import (
 TRADE_COST = 0.001
 
 
-def evaluate(returns, target):
+def evaluate(returns, target, trade_cost=TRADE_COST):
     """Rebalance before each month's return and charge costs on one-way turnover."""
     drifted = target
     net_returns = []
@@ -28,7 +28,7 @@ def evaluate(returns, target):
         turnover = 1.0 if month == 0 else (target - drifted).abs().sum() / 2
         gross_end = target * (1 + changes)
         gross_growth = gross_end.sum()
-        net_returns.append((1 - TRADE_COST * turnover) * gross_growth - 1)
+        net_returns.append((1 - trade_cost * turnover) * gross_growth - 1)
         drifted = gross_end / gross_growth
     return (
         prod(1 + value for value in net_returns) ** (12 / len(net_returns)) - 1,
@@ -85,6 +85,14 @@ def main():
     if equal_estimate < OBJECTIVE:
         required_share = (OBJECTIVE - equal_estimate) / (fit["return"] - equal_estimate)
         print(f"Constrained share needed for the 8% sleeve screen: {required_share:.4%}")
+    print("Cost stress on the same fixed targets (separate from the locked 10 bps result):")
+    for cost in (0.0, TRADE_COST, 0.0025):
+        stressed_return, stressed_risk = evaluate(evaluation, target, cost)
+        benchmark_return, benchmark_risk = evaluate(evaluation, equal, cost)
+        passes = stressed_return >= OBJECTIVE and stressed_risk < benchmark_risk
+        print(f"  {cost * 10_000:.0f} bps: constrained {stressed_return:.2%} return / "
+              f"{stressed_risk:.2%} volatility; equal weight {benchmark_return:.2%} / "
+              f"{benchmark_risk:.2%}; {'pass' if passes else 'hold'}")
     if return_veto or risk_veto:
         print("HOLD: replay failed. Keep equal weight as the fallback subject to policy.")
     else:

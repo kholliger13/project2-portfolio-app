@@ -1,6 +1,6 @@
 # Three recording briefs
 
-Open each recording with an accurate AI disclosure. For example, “AI assisted with preparation and validation. This presentation is for education, not investment advice.”
+Open each recording with an accurate AI disclosure. For example, “I used OpenAI Codex to implement, document, and validate the app and replay. The analysis and decision are mine. Education, not investment advice.”
 
 ## 1. How it changed
 

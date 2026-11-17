@@ -21,7 +21,7 @@ The two windows overlap, and each portfolio is evaluated on the same returns use
 
 **Grounds to reject.** Before looking at results, agree on the benchmark, test period, rebalance schedule, costs and acceptable deviations. At each historical rebalance, estimate using only data available then, freeze the weights, and evaluate the next period's realized return, volatility, drawdown, turnover and reserve coverage. Compare against a simple feasible baseline on the same dates and cost assumptions. A binding mandate breach or a persistent shortfall outside agreed tolerances supports holding or rejecting the proposed use. The bundled 59 monthly returns cannot supply even one complete five-year outcome after a 36-month estimation period. That evidence gap matters for Meridian's five-year objective. [Frozen price inputs](prices.csv)
 
-If PAYEMS enters a future backtest, require the correct vintage at each decision before measuring performance. On October 4, 2024, September employment appears only when same-day releases are eligible. Reject a backtest that uses that value before the release even if its reported performance improves. The current PAYEMS test establishes a date boundary within the captured data. [Source-to-test trace](DECISION.md)
+If PAYEMS enters a future backtest, require the correct vintage at each decision before measuring performance. On October 4, 2024, September employment appears only when same-day releases are eligible. Reject a backtest that uses that value before the release even if its reported performance improves. The current PAYEMS test establishes a date boundary within the captured data. [Source-to-test trace](docs/decision-memo.md)
 
 ## Ongoing Model Monitoring
 

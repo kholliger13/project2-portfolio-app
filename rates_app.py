@@ -98,6 +98,13 @@ with payroll_tab:
     if eligible:
         panel = pd.DataFrame(eligible)
         panel['value'] = pd.to_numeric(panel['value'])
+        latest = panel.sort_values('month measured').tail(2)
+        periods = pd.PeriodIndex(latest['month measured'], freq='M')
+        if len(periods) == 2 and periods[0] + 1 == periods[1]:
+            change = latest['value'].iloc[-1] - latest['value'].iloc[0]
+            st.write(f"PAYEMS monthly change signal for {periods[-1]}: {change:+,} thousand jobs.")
+        else:
+            st.info("PAYEMS monthly change signal unavailable: two consecutive months are required.")
         st.line_chart(panel.set_index('month measured')['value'], y_label='Thousands of persons')
         st.dataframe(panel, hide_index=True, width='stretch')
         st.download_button('Download knowable PAYEMS panel', panel.to_csv(index=False), f'payems_selected_{decision}.csv', 'text/csv')

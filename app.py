@@ -14,7 +14,8 @@ FUND_NAMES = {
 }
 st.set_page_config(page_title="Portfolio Recommendation", layout="wide")
 st.title("Diversified Growth with a Bond Floor")
-st.caption("Built with AI help, a learning demonstration, not investment advice.")
+st.caption("OpenAI Codex assisted with implementation and validation. "
+           "Kayla Holliger owns the analysis and decision. Education, not investment advice.")
 st.write("Seek the lowest modeled volatility while meeting an estimated annual return "
          "objective and a minimum bond reserve. Every mix is fully invested, long-only, "
          "and uses 5 percentage point steps.")
@@ -78,8 +79,9 @@ def solve(mu, cov, eligible, objective, reserve_min):
 eligible = edited.index[edited["Reserve eligible"]].tolist()
 try:
     with st.spinner("Trying every 5-point mix…"):
-        result = solve(edited["Annual return estimate (%)"] / 100,
-                       build_covariance(vol, corr), eligible, objective, reserve_min)
+        estimates = edited["Annual return estimate (%)"] / 100
+        covariance = build_covariance(vol, corr)
+        result = solve(estimates, covariance, eligible, objective, reserve_min)
         baseline = solve(base_mu, build_covariance(base_vol, base_corr), eligible, objective, reserve_min)
 except ValueError as error:
     st.error(str(error))
@@ -91,7 +93,7 @@ if not eligible and reserve_min > 0:
 def display(result, heading):
     st.markdown(f"### {heading}")
     if not result["found"]:
-        st.error("no mix meets the objective")
+        st.warning("Stop: no mix satisfies both the return objective and reserve floor.")
         maximum = result['max_return_on_grid']
         st.caption("No grid mix satisfies the reserve minimum." if maximum is None else
                    f"Highest estimated return among reserve-feasible mixes: {maximum:.2%}.")
@@ -121,3 +123,38 @@ else:
 st.caption("Both answers use the same objective, reserve minimum, and eligibility selections. "
            "Lowest risk means lowest volatility on the 5-point grid. Historical estimates "
            "do not guarantee future returns; a bond allocation does not guarantee capital stability.")
+
+st.subheader("3. Mandate verdicts")
+st.caption("All displayed portfolios are fully invested and long-only. "
+           "The 5-point grid applies to the constrained search. "
+           "Baselines and the constrained result are scored on the same selected estimates. "
+           "Estimated return is annualized arithmetic return; risk is annualized volatility.")
+equal = pd.Series(1 / len(estimates), index=estimates.index)
+inverse_volatility = (1 / vol) / (1 / vol).sum()
+candidates = {
+    "Equal weight": equal,
+    "Inverse volatility": inverse_volatility,
+    "Constrained portfolio": result.get("weights"),
+}
+verdicts = []
+for name, weights in candidates.items():
+    if weights is None:
+        verdicts.append({"Portfolio": name, "Verdict": "Fail — no feasible grid mix"})
+        continue
+    estimated_return = weights @ estimates
+    reserve_weight = weights.reindex(eligible).sum()
+    failures = []
+    if estimated_return < objective - 1e-12:
+        failures.append("return objective")
+    if reserve_weight < reserve_min - 1e-12:
+        failures.append("reserve floor")
+    verdicts.append({
+        "Portfolio": name,
+        "Estimated annual return": f"{estimated_return:.2%}",
+        "Annual volatility": f"{(weights @ covariance @ weights) ** .5:.2%}",
+        "Reserve weight": f"{reserve_weight:.2%}",
+        "Verdict": "Fail — " + " and ".join(failures) if failures else "Pass — both screens",
+    })
+st.dataframe(pd.DataFrame(verdicts), hide_index=True, width="stretch")
+st.caption("Equal weight gives every fund the same weight. Inverse volatility gives more weight "
+           "to funds with lower estimated volatility. The verdicts cover the selected app screens.")

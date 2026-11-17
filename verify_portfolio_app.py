@@ -23,7 +23,17 @@ def verify():
             frame.value for frame in app.dataframe if "Weight (%)" in frame.value.columns
         ]
         assert weight_tables[0]["Weight (%)"].tolist() == weights
-    print("PASS: both Lab 14 windows reproduced with the same 8% objective and 20% reserve floor.")
+        verdicts = next(frame.value for frame in app.dataframe if "Verdict" in frame.value)
+        assert verdicts["Portfolio"].tolist() == [
+            "Equal weight", "Inverse volatility", "Constrained portfolio"]
+        assert verdicts["Verdict"].iloc[-1] == "Pass — both screens"
+
+    app.sidebar.number_input[0].set_value(30.0).run(timeout=60)
+    assert not app.exception and not app.error
+    verdicts = next(frame.value for frame in app.dataframe if "Verdict" in frame.value)
+    assert verdicts["Verdict"].iloc[-1] == "Fail — no feasible grid mix"
+    assert any("Stop: no mix" in warning.value for warning in app.warning)
+    print("PASS: both windows, three mandate verdicts and the infeasible-constraint stop.")
 
 
 if __name__ == "__main__":

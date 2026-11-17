@@ -47,9 +47,11 @@ def verify():
     assert app.multiselect[0].value == CLASS_SERIES
     assert len(app.metric) == 4
     assert displayed_payems(app) == {'2024-08-01': 158851, '2024-09-01': 159105}
+    assert any("+254 thousand jobs" in entry.value for entry in app.markdown)
     app.checkbox[0].check().run(timeout=120)
     assert not app.exception and not app.error
     assert displayed_payems(app) == {'2024-08-01': 158779}
+    assert any("signal unavailable" in entry.value for entry in app.info)
     app.multiselect[0].set_value([]).run(timeout=120)
     assert not app.exception
     app.date_input[0].set_value(date(2024, 7, 1)).run(timeout=120)

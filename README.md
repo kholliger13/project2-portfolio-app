@@ -2,11 +2,12 @@
 
 Kayla Holliger · FIN 43900 · Purdue
 
-AI assisted with repository assembly and validation. This work is for education, not investment advice.
+I used OpenAI Codex to implement, document, and validate the app and replay.
+The analysis and decision are mine. Education, not investment advice.
 
-**Portfolio committee decision: keep pilot funding on hold until the mandate scope is confirmed.** The constrained mix passed the historical replay. If the 8% screen applies to the whole sleeve, both the proposed 25/75 pilot (3.49%) and the equal-weight fallback (1.88%) fail on the 23-month estimates. [Committee decision](DECISION.md#portfolio-pilot-decision) · [Locked prediction and replay](LOCKED_CHANGED_INPUT.md)
+**Portfolio committee decision: keep pilot funding on hold until the mandate scope is confirmed.** The constrained mix passed the historical replay. If the 8% screen applies to the whole sleeve, both the proposed 25/75 pilot (3.49%) and the equal-weight fallback (1.88%) fail on the 23-month estimates. [Committee decision](docs/decision-memo.md#portfolio-pilot-decision) · [Locked prediction and replay](LOCKED_CHANGED_INPUT.md)
 
-The frozen PAYEMS data are approved for classroom demonstration. PAYEMS admission to Project 2 remains on hold pending eligibility and decision-use evidence. [PAYEMS decision](DECISION.md#payems-data-decision)
+The frozen PAYEMS data are approved for classroom demonstration. PAYEMS admission to Project 2 remains on hold pending eligibility and decision-use evidence. [PAYEMS decision](docs/decision-memo.md#payems-data-decision)
 
 ## Run from a clean checkout
 
@@ -16,18 +17,24 @@ From the repository root, use Python 3.13 (tested on 3.13.15). Install dependenc
 python3.13 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-sh review.sh
+sh review.sh && python replay.py
 ```
 
-The last command prints the three Meridian baselines, then verifies both portfolio windows, the classroom provenance and signal answers, the PAYEMS source and cutoff cases, and both rates interfaces. An error stops the run.
+The last command prints the three Meridian baselines, then verifies both portfolio windows, the classroom provenance and signal answers, the PAYEMS source and cutoff cases, and both rates interfaces. It then prints the portfolio replay, funding checks, and cost stress. An error stops the run.
 
 | Demo | Command | What to reproduce |
 |---|---|---|
-| Portfolio | `python -m streamlit run app.py` | Keep the six-fund CSV, 8% objective and 20% reserve floor. Switch from **All returns** to **Last 36 months**. LQD rises from 55% to 80%. |
+| Portfolio | `python -m streamlit run app.py` | Keep the six-fund CSV, 8% objective and 20% reserve floor. Switch from **All returns** to **Last 36 months**. LQD rises from 55% to 80%. Scroll to **Mandate verdicts** for the two baselines and constrained mix. |
 | Rates and PAYEMS | `python -m streamlit run rates_app.py` | Use the default October 4, 2024 cutoff. In the PAYEMS tab, compare the default date with and without same-day publications. |
 | Live comparison, optional | `python -m streamlit run asof_app.py` | Compare current FRED data with a historical ALFRED vintage. The app requires internet access. Its test in `review.sh` uses controlled responses. |
 
 Stop each Streamlit server with Ctrl+C. Keep the default historical dates and avoid the refresh button for the frozen rates demo. Uncached or refreshed vintages need internet access. `prices.csv` is the frozen input for the six-fund portfolio app.
+
+## Portfolio mandate and stress demo
+
+The six-fund sleeve uses QQQ, XLE, EWZ, LQD, TLT and FBMPX. The objective is minimum estimated annualized volatility on the 5-point grid, with at least 8% estimated annual return and at least 20% combined in LQD and TLT. Weights are fully invested and long-only. Equal weight is the comparison benchmark, with inverse volatility as the second transparent baseline. The scope of the 8% screen for funding is pending committee confirmation. The Meridian training case is a separate app mode.
+
+In the portfolio app, change the estimation window, edit a return estimate, or raise the return objective to 30% with the bundled defaults. Read each verdict and the stop message when no mix satisfies both screens. The replay command varies costs at 0, 10 and 25 basis points on the same fixed targets. The locked result uses 10 basis points.
 
 ## Work and evidence
 
@@ -42,6 +49,8 @@ The Week 12 handout supplies the mapping below. Earlier filenames retain their o
 | Locked Changed-Input Record | Lab 11 pattern, applied to one Project 2 input | [Pre-run prediction and replay result](LOCKED_CHANGED_INPUT.md), [replay script](replay.py). The GitHub pre-run link remains unresolved. |
 | Submission bundle | Project 2 page and submission architecture | [Week 12 studio notes](STUDIO.md). Final manifest and delivery links are unresolved. |
 
-Read the [claim and decision](DECISION.md), [SR 26-2 model validation review](MODEL_VALIDATION.md), [three video briefs](VIDEOS.md), and [frozen must-fix list](MUST_FIX.md). Historical write-ups retain their original paths and instructions. Use the commands above for this checkout.
+Read the [claim and decision](docs/decision-memo.md), [SR 26-2 model validation review](MODEL_VALIDATION.md), [three video briefs](VIDEOS.md), and [frozen must-fix list](MUST_FIX.md). Historical write-ups retain their original paths and instructions. Use the commands above for this checkout.
 
 Educational work with AI assistance. The Meridian and classroom fixtures use supplied training inputs.
+
+See [visible output](docs/results.md) and the [submission manifest](docs/submission-manifest.md).

@@ -54,3 +54,7 @@ I trust publication date least because the app’s October 29 PAYEMS request ret
 - [January 15 PAYEMS probe](payems_app_probe_2025_01_15.md): December 2024 was 159,536 then versus 158,316 today; 381 shared observations were revised. Both live checks passed again on the final app through Streamlit AppTest.
 - Automated checks passed for default controls, custom IDs, unknown-ID isolation, missing values, revision counts, cache behavior, and rejection of future returned vintages.
 - This card contains the source, measurement, units, publication lag, revision behavior and download date, followed by the two-sentence publication-date answer and the quarantine decision with conditions for admission.
+
+## Point-in-time signal
+
+The rates app subtracts the previous month's eligible PAYEMS level from the latest month's eligible level, in thousands of jobs. Both values use the same cutoff and must cover consecutive months. Including same-day publications on October 4, 2024 gives September minus August, or 159,105 − 158,851 = **+254 thousand jobs**. Excluding same-day publications leaves only August in the captured window, so the signal is unavailable. This classroom signal is not used to fit or trade the portfolio.
