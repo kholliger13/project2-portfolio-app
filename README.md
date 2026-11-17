@@ -20,7 +20,7 @@ python -m pip install -r requirements.txt
 sh review.sh && python replay.py
 ```
 
-The last command prints the three Meridian baselines, then verifies both portfolio windows, the classroom provenance and signal answers, the PAYEMS source and cutoff cases, and both rates interfaces. It then prints the portfolio replay, funding checks, and cost stress. An error stops the run.
+The last command prints the three Meridian baselines, then verifies both portfolio windows, the classroom provenance and signal answers, the PAYEMS source and cutoff cases, and both rates interfaces. It then prints the portfolio replay, funding checks, and cost stress. An error stops the run. During these automated checks, Streamlit may print `missing ScriptRunContext` or `No runtime found` warnings. These are expected when the checks finish successfully.
 
 | Demo | Command | What to reproduce |
 |---|---|---|
@@ -47,7 +47,7 @@ The Week 12 handout supplies the mapping below. Earlier filenames retain their o
 | Portfolio app, constrained search and stress run | Lab 15 | [App](app.py), [shared engine](portfolio.py), [window comparison](evidence/Lab14_portfolio_app_2026_10_22.md), [verification](verify_portfolio_app.py). Confirm the final product's mandate verdicts and required stress run against the Project 2 instructions. |
 | Point-in-time rule and data card | Labs 16 and 17 | [Classroom fixture](Lab15_known_answer_provenance_2026_03_31.md), [gate](asof.py), [PAYEMS reconstruction](payems_point_in_time.py), [data card](evidence/PAYEMS_data_card_2026_10_29.md), [rates app](rates_app.py) |
 | Locked Changed-Input Record | Lab 11 pattern, applied to one Project 2 input | [Pre-run prediction and replay result](LOCKED_CHANGED_INPUT.md), [replay script](replay.py). The GitHub pre-run link remains unresolved. |
-| Submission bundle | Project 2 page and submission architecture | [Week 12 studio notes](STUDIO.md). Final manifest and delivery links are unresolved. |
+| Submission bundle | Project 2 page and submission architecture | [Week 12 studio notes](STUDIO.md). [Partner cold-run record](docs/partner-swap.md). The verified GitHub handoff and remaining submission links are tracked in the manifest. |
 
 Read the [claim and decision](docs/decision-memo.md), [SR 26-2 model validation review](MODEL_VALIDATION.md), [three video briefs](VIDEOS.md), and [frozen must-fix list](MUST_FIX.md). Historical write-ups retain their original paths and instructions. Use the commands above for this checkout.
 

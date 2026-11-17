@@ -25,6 +25,19 @@ README handoff gap: the shared link needs to resolve directly to Zachary's Proje
 
 Zachary requested the current README link so he can rerun using that link alone. A fresh fetch of the supplied GitHub repository reached `07e1c52` on `origin/main`. That commit contains the KaylaHolliger folder, and the Project 2 README and runnable bundle are still missing. The local publication fix adds both. A rerun can start once that fix is published.
 
+## Zachary’s clean GitHub rerun
+
+| Item | Zachary’s report |
+|---|---|
+| Link | [Project 2 repository](https://github.com/kholliger13/project2-portfolio-app) |
+| Checkout | Fresh clone in an empty folder. `main` at [`ba706d9`](https://github.com/kholliger13/project2-portfolio-app/commit/ba706d9cf56889caf5cc8e7753b880eb12c1ce97), November 17, 2026 at 17:59:40 Eastern. |
+| Commands | `git clone https://github.com/kholliger13/project2-portfolio-app`, then from the clone root, `python3.13 -m venv .venv`, `source .venv/bin/activate`, `python -m pip install -r requirements.txt`, and `sh review.sh && python replay.py`. |
+| First failure | None. Exit code 0 under Python 3.13.18. |
+| Elapsed | About 32 seconds from clone to the final replay line, including environment creation and installation. |
+| Result | Terminal output from `python replay.py` confirmed both vetoes cleared. The funding hold was in the [README](../README.md) and [decision memo](decision-memo.md). |
+
+No code fix was needed after the successful rerun. Publishing the standalone repository resolved the missing README. The README now explains the expected Streamlit warnings raised during automated review.
+
 ## Pre-run cost prediction for Kayla's portfolio
 
 Kayla supplied this prediction before running the 50 bp stress check. The original locked replay remains the 10 bp baseline.
@@ -52,4 +65,13 @@ Both vetoes cleared. The 25/75 blend estimated 3.4864% return and held 37.50% in
 
 ### After output at 50 bps
 
-Pending a GitHub publication of this pre-run prediction. Record both portfolios' realized metrics, both vetoes, the committee decision and why the observed result did or did not match the prediction.
+Zachary reported the run on published commit `ba706d9` after the prediction was online. The results were reproduced locally using the same `replay.evaluate()` with `trade_cost=0.005`, the original fit and evaluation dates, and the same target weights.
+
+| Portfolio | Annualized net return | Annualized volatility | Net return change |
+|---|---:|---:|---:|
+| Constrained | 11.1221% | 9.5217% | −0.2149 percentage points |
+| Equal weight | 15.4536% | 10.0237% | −0.2398 percentage points |
+
+**Prediction check.** Both net returns fell by less than half a percentage point. Volatility rose about 0.07 percentage points in each portfolio. Equal weight had higher annualized one-way turnover in this replay, 51.77% versus 48.20% including initial purchases, consistent with its larger net return decline. Neither veto triggered. The constrained return remained 3.12 percentage points above 8%, and its volatility remained below equal weight’s. The 25/75 blend’s training estimate stayed at 3.49% because the fit excludes transaction costs.
+
+**Committee line.** Pilot 25% constrained and 75% equal weight only if the committee confirms the 8% screen applies to the constrained allocation and the blend passes the remaining mandate checks. If the screen applies to the funded sleeve, reject the proposed pilot. Reaching 8% would require about 95.24% constrained. Funding stays on hold pending confirmation.
