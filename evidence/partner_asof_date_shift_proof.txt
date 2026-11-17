@@ -1,0 +1,96 @@
+PARTNER AS-OF DATE-SHIFT PROOF
+PASS March 31 signals match the supplied known answer.
+PASS April 15 as-of signals equal naive signals for every ticker.
+Ticker | March 31 as-of | Naive | April 15 as-of
+AAA | +1.98% | +5.83% | +5.83%
+BBB | -1.02% | -5.15% | -5.15%
+CCC | +0.91% | +1.82% | +1.82%
+PASS Original attachment restored byte for byte; rerun reproduces original output.
+Original/restored SHA256: 4e1868167461207fbc4ec5548b7c923b917ddc151aacd342185c8f208b8a61da
+
+MARCH 31 OUTPUT
+Decision date: 2026-03-31
+
+Row funnel:
+  1. Missing ticker (quarantine): quarantined 1; rows [11]
+  2. Exact duplicate: removed 1; rows [7]
+  3. Published after decision date: removed 3; rows [3, 8, 10]
+  4. Superseded publication (revision): removed 1; rows [2]
+  Remaining: 6
+  Quarantine retains original rows: [11]
+
+As-of panel:
+  Row  Ticker Month   Published     Price
+    1  AAA    2026-01 2026-02-10   101.00
+    4  AAA    2026-02 2026-03-25   103.00
+    5  BBB    2026-01 2026-02-10    98.00
+    6  BBB    2026-02 2026-03-10    97.00
+    9  CCC    2026-01 2026-02-10   110.00
+   12  CCC    2026-02 2026-03-10   111.00
+
+As-of signals:
+AAA: 103.0 / 101.0 - 1 = +1.98% (rows 1, 4)
+BBB: 97.0 / 98.0 - 1 = -1.02% (rows 5, 6)
+CCC: 111.0 / 110.0 - 1 = +0.91% (rows 9, 12)
+Ranking: AAA > CCC > BBB
+
+Naive signals (latest publication per ticker/month, ignoring cutoff):
+AAA: 109.0 / 103.0 - 1 = +5.83% (rows 4, 3)
+BBB: 92.0 / 97.0 - 1 = -5.15% (rows 6, 8)
+CCC: 112.0 / 110.0 - 1 = +1.82% (rows 9, 10)
+Ranking: AAA > CCC > BBB
+Naive signals may compare different months across funds and use future publications.
+
+V: economic validity flags (separate from the four gates)
+Row 1: AAA 2026-01, price 101.0 > 100; one-year zero yield = -0.99%
+Row 4: AAA 2026-02, price 103.0 > 100; one-year zero yield = -2.91%
+Row 9: CCC 2026-01, price 110.0 > 100; one-year zero yield = -9.09%
+Row 12: CCC 2026-02, price 111.0 > 100; one-year zero yield = -9.91%
+2026-01: rows 5 and 9 violate BBB price > CCC price (98.0 <= 110.0)
+2026-02: rows 6 and 12 violate BBB price > CCC price (97.0 <= 111.0)
+Negative yields are possible in real markets; flagged here under the exercise assumptions.
+
+APRIL 15 OUTPUT
+Decision date: 2026-04-15
+
+Row funnel:
+  1. Missing ticker (quarantine): quarantined 1; rows [11]
+  2. Exact duplicate: removed 1; rows [7]
+  3. Published after decision date: removed 0; rows none
+  4. Superseded publication (revision): removed 2; rows [2, 12]
+  Remaining: 8
+  Quarantine retains original rows: [11]
+
+As-of panel:
+  Row  Ticker Month   Published     Price
+    1  AAA    2026-01 2026-02-10   101.00
+    3  AAA    2026-03 2026-04-10   109.00
+    4  AAA    2026-02 2026-03-25   103.00
+    5  BBB    2026-01 2026-02-10    98.00
+    6  BBB    2026-02 2026-03-10    97.00
+    8  BBB    2026-03 2026-04-10    92.00
+    9  CCC    2026-01 2026-02-10   110.00
+   10  CCC    2026-02 2026-04-05   112.00
+
+As-of signals:
+AAA: 109.0 / 103.0 - 1 = +5.83% (rows 4, 3)
+BBB: 92.0 / 97.0 - 1 = -5.15% (rows 6, 8)
+CCC: 112.0 / 110.0 - 1 = +1.82% (rows 9, 10)
+Ranking: AAA > CCC > BBB
+
+Naive signals (latest publication per ticker/month, ignoring cutoff):
+AAA: 109.0 / 103.0 - 1 = +5.83% (rows 4, 3)
+BBB: 92.0 / 97.0 - 1 = -5.15% (rows 6, 8)
+CCC: 112.0 / 110.0 - 1 = +1.82% (rows 9, 10)
+Ranking: AAA > CCC > BBB
+Naive signals may compare different months across funds and use future publications.
+
+V: economic validity flags (separate from the four gates)
+Row 1: AAA 2026-01, price 101.0 > 100; one-year zero yield = -0.99%
+Row 3: AAA 2026-03, price 109.0 > 100; one-year zero yield = -8.26%
+Row 4: AAA 2026-02, price 103.0 > 100; one-year zero yield = -2.91%
+Row 9: CCC 2026-01, price 110.0 > 100; one-year zero yield = -9.09%
+Row 10: CCC 2026-02, price 112.0 > 100; one-year zero yield = -10.71%
+2026-01: rows 5 and 9 violate BBB price > CCC price (98.0 <= 110.0)
+2026-02: rows 6 and 10 violate BBB price > CCC price (97.0 <= 112.0)
+Negative yields are possible in real markets; flagged here under the exercise assumptions.

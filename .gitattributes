@@ -1,0 +1,5 @@
+# Preserve captured source bytes, including line endings, for integrity checks.
+*.csv -text whitespace=cr-at-eol
+rates_source_vintages/** -text
+payems_source_vintages/** -text
+alfred_download_page.html -text -whitespace

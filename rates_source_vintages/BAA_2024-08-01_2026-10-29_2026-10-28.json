@@ -1,0 +1,7 @@
+{
+  "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=BAA&cosd=2024-08-01&coed=2026-10-29&vintage_date=2026-10-28",
+  "retrieved_at_utc": "2026-10-29T20:40:13.059888+00:00",
+  "series": "BAA",
+  "requested_vintage": "2026-10-28",
+  "sha256": "48b9d99d196f9c1a534e3bc71e071b163f4a9c17022e930757559fbe626508c4"
+}

@@ -1,0 +1,7 @@
+{
+  "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=MORTGAGE30US&cosd=2024-08-01&coed=2026-10-29&vintage_date=2026-10-29",
+  "retrieved_at_utc": "2026-10-29T20:40:13.697707+00:00",
+  "series": "MORTGAGE30US",
+  "requested_vintage": "2026-10-29",
+  "sha256": "db4b1ba1386a1a18b593754e768ab1e056f610a824d8bc25ca2e2de6310cd52e"
+}

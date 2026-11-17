@@ -1,0 +1,7 @@
+{
+  "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=DGS10&cosd=2024-08-01&coed=2026-10-29&vintage_date=2026-10-28",
+  "retrieved_at_utc": "2026-10-29T20:40:13.615693+00:00",
+  "series": "DGS10",
+  "requested_vintage": "2026-10-28",
+  "sha256": "9048b109c022054e632a266b65897032404d5dbe68745cb24c1a0e5489f585c4"
+}

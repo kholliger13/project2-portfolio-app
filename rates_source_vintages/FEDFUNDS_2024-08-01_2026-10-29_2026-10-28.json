@@ -1,0 +1,7 @@
+{
+  "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=FEDFUNDS&cosd=2024-08-01&coed=2026-10-29&vintage_date=2026-10-28",
+  "retrieved_at_utc": "2026-10-29T20:40:13.334915+00:00",
+  "series": "FEDFUNDS",
+  "requested_vintage": "2026-10-28",
+  "sha256": "7376932c38c6e7ed56900a739d60acbc770d09dc87ddd8a1122822582b570331"
+}
