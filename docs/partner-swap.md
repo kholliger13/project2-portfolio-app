@@ -27,14 +27,17 @@ Zachary requested the current README link so he can rerun using that link alone.
 
 ## Pre-run cost prediction for Kayla's portfolio
 
-Prediction prepared with OpenAI Codex before testing the new cost. This is a separate stress check from the original locked replay.
+Kayla supplied this prediction before running the 50 bp stress check. The original locked replay remains the 10 bp baseline.
 
 | Item | Pre-run prediction |
 |---|---|
-| Changed input | Increase one-way trading cost from **10 to 50 basis points per dollar traded**, including the initial purchase for both portfolios. |
-| Fixed inputs | Keep the same 23-month fit, 36-month evaluation, two portfolios, target weights, and rebalance schedule. |
-| Expected movement | Both portfolios' annualized net returns should fall. Annualized volatility could move slightly in either direction because turnover costs vary by month. I expect the constrained mix to remain less volatile. |
-| Expected vote | Expect both replay vetoes to stay clear. Funding should remain on hold pending confirmation of the 8% screen's scope, since changing replay costs leaves training estimates and blend weights unchanged. |
+| Input | Trading cost per dollar traded |
+| Old value | 10 bps (0.10%) |
+| New value | 50 bps (0.50%) |
+| Fixed inputs | Same 23-month fit, 36-month evaluation, target weights, and monthly rebalance schedule. Charge both portfolios for the initial purchase. |
+| Expected direction | Both portfolios' annualized net returns fall. Volatility is essentially unchanged. Approximate return drop is annual turnover × 0.40 percentage points, likely under 0.5 percentage points per year. |
+| Expected effect on the decision | Both vetoes stay clear unless the constrained net return starts within about 0.5 percentage points of 8%. The recorded 10 bp return was 11.3370%, or 3.3370 percentage points above 8%. The 3.49% sleeve estimate is gross and remains unchanged when only trading cost changes. |
+| Expected vote | Hold pending scope. Fund a 25% constrained and 75% equal-weight pilot only if the committee confirms the 8% screen applies to the constrained allocation alone and the remaining mandate checks pass. If the screen applies to the full sleeve, reject the proposal. The 25/75 blend estimates 3.49%, and the minimum constrained share is about 95.24%. |
 
 ### Before output at 10 bps
 
