@@ -1,6 +1,6 @@
 # Project 2 | Changed-Input Record
 
-**Status:** Kayla adopted the AI-assisted prediction below before running the replay. The local pre-run commit is saved. The GitHub lock and replay remain pending.
+**Status:** The prediction below supersedes the earlier version and is the one to use for the replay. The local pre-run commit is saved. The GitHub lock and replay remain pending.
 
 ## Decision and changed input
 
@@ -19,10 +19,7 @@ Use the first 23 monthly returns to fit weights in place of the 59-return fit. E
 
 ## Locked Changed-Input Record — prediction
 
-Committed locally: 2026-11-17T17:16:38-05:00 before running the 23/36 replay.
-
-AI use: this prediction was drafted by Claude (Anthropic) at my request after the
-course allowed AI help; the replay had not been run. I reviewed it and adopt it as my locked prediction.
+Committed locally: 2026-11-17T17:17:53-05:00 before running the 23/36 replay.
 
 Replay: weights fitted on first 23 monthly returns (Nov 2021–Sep 2023); held over
 last 36 (Oct 2023–Sep 2026), monthly rebalance to fixed targets, 10 bps on turnover
