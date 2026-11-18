@@ -1,6 +1,6 @@
 # Project 2 | Changed-Input Record
 
-**Status:** The prediction below supersedes the earlier version and is the one to use for the replay. The prediction was saved locally at `f6a0689` before the run. The replay has been completed under that local lock. The GitHub pre-run link remains unresolved.
+**Status:** The prediction below supersedes the earlier version and is the one to use for the replay. The prediction was saved locally at `f6a0689` before the run. The replay has been completed under that local lock. GitHub publication followed the replay. The public commit history preserves the local lock and replay order.
 
 ## Decision and changed input
 
@@ -44,7 +44,7 @@ funds afterward. The mix should still clear 8%, but equal weight's broad spread
 had only ~10% volatility over the last 36 months, so I expect the constrained
 mix to be riskier, which fails the claim.
 
-Pre-run GitHub commit link: pending.
+Local pre-run commit, later published on GitHub: [`f6a0689`](https://github.com/kholliger13/project2-portfolio-app/commit/f6a06897cd0d42c4574cf65961833846c0738159).
 
 ## Replay result | November 17, 2026
 

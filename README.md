@@ -38,16 +38,19 @@ In the portfolio app, change the estimation window, edit a return estimate, or r
 
 ## Work and evidence
 
-The Week 12 handout supplies the mapping below. Earlier filenames retain their original labels.
+This mapping follows the Week 12 handout and the linked official lab prompts. Earlier filenames retain their original labels.
 
 | Project 2 component | Studio mapping | Available evidence |
 |---|---|---|
 | Mandate, hard constraints and client question | Lab 13 and your own mandate | [Meridian common case](evidence/meridian_foundation_common_case.md), [mandate checker](mandate.py). Confirm the final client question and mandate. |
 | Baselines and mandate check | Lab 14 | [Meridian baselines](evidence/Lab13_meridian_baselines.md), [baseline script](lab13_baselines.py) |
 | Portfolio app, constrained search and stress run | Lab 15 | [App](app.py), [shared engine](portfolio.py), [window comparison](evidence/Lab14_portfolio_app_2026_10_22.md), [verification](verify_portfolio_app.py). Confirm the final product's mandate verdicts and required stress run against the Project 2 instructions. |
-| Point-in-time rule and data card | Labs 16 and 17 | [Classroom fixture](Lab15_known_answer_provenance_2026_03_31.md), [gate](asof.py), [PAYEMS reconstruction](payems_point_in_time.py), [data card](evidence/PAYEMS_data_card_2026_10_29.md), [rates app](rates_app.py) |
-| Locked Changed-Input Record | Lab 11 pattern, applied to one Project 2 input | [Pre-run prediction and replay result](LOCKED_CHANGED_INPUT.md), [replay script](replay.py). The GitHub pre-run link remains unresolved. |
-| Submission bundle | Project 2 page and submission architecture | [Week 12 studio notes](STUDIO.md). [Partner cold-run record](docs/partner-swap.md). The verified GitHub handoff and remaining submission links are tracked in the manifest. |
+| Provenance gate and classroom known answer | [Lab 16](https://github.com/CinderZhang/FIN43900-Fall2026/blob/main/lessons/week-10/lab-16-provenance-gate.md) | [Gate](asof.py), [all 12 row dispositions and financial sanity checks](Lab15_known_answer_provenance_2026_03_31.md), [known-answer test](verify_asof.py), [partner date-shift proof](evidence/partner_asof_date_shift_proof.txt) |
+| Live point-in-time audit, data card and series decision | [Lab 17](https://github.com/CinderZhang/FIN43900-Fall2026/blob/main/lessons/week-10/lab-17-point-in-time.md) | [Live app](asof_app.py), [October 5 known answer](evidence/asof_known_answer_2026_10_05.md), [PAYEMS revision probe](evidence/payems_app_probe_2025_01_15.md), [data card](evidence/PAYEMS_data_card_2026_10_29.md), [series decision](docs/decision-memo.md#payems-data-decision). The partner's data-card challenge and response are unresolved in this bundle. |
+| Buffett skill, COST known answer, missing-data and unsupported-number probes | [Lab 18](https://github.com/CinderZhang/FIN43900-Fall2026/blob/main/lessons/week-11/lab-18-legend-investor-as-skill.md) | [Saved checkout verification](evidence/week11/verification_status.md) and [COST decision](evidence/week11/reports/COST_decision.md). These are archived Week 11 evidence. |
+| Buffett, Cathie Wood and Burry panel on shared 10-K facts | [Lab 19](https://github.com/CinderZhang/FIN43900-Fall2026/blob/main/lessons/week-11/lab-19-legend-panel.md) | [COST benchmark, threshold probe, Apple panel and conditional screening decision](evidence/week11/Lab_2026_11_05.md) and [verification](evidence/week11/panel_verification_2026_11_05.md). Saved bull/bear notes cover COST and JPM. An Apple-specific partner exchange is unresolved. |
+| Locked Changed-Input Record | Lab 11 pattern, applied to one Project 2 input | [Prediction and replay](LOCKED_CHANGED_INPUT.md), [replay script](replay.py). The original lock was local before the replay and published later. The separate [50 bp prediction](https://github.com/kholliger13/project2-portfolio-app/commit/ba706d9cf56889caf5cc8e7753b880eb12c1ce97) was on GitHub before its rerun. |
+| Submission bundle | Project 2 page and submission architecture | [Submission manifest](docs/submission-manifest.md), [published README](https://github.com/kholliger13/project2-portfolio-app/blob/main/README.md), and [completed partner cold run](docs/partner-swap.md). Video and transcript links remain unresolved. |
 
 Read the [claim and decision](docs/decision-memo.md), [SR 26-2 model validation review](MODEL_VALIDATION.md), [three video briefs](VIDEOS.md), and [frozen must-fix list](MUST_FIX.md). Historical write-ups retain their original paths and instructions. Use the commands above for this checkout.
 

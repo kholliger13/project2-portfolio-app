@@ -1,0 +1,27 @@
+{
+  "fund": "Invesco QQQ",
+  "ticker": "QQQ",
+  "assignment_eligibility": "pending",
+  "holdings_date": "2026-11-04",
+  "retrieved_at": "2026-11-05T22:29:20.658118+00:00",
+  "page_url": "https://www.invesco.com/qqq-etf/en/about.html",
+  "data_url": "https://dng-api.invesco.com/cache/v1/accounts/en_US/shareclasses/QQQ/holdings/fund?idType=ticker&interval=monthly&productType=ETF",
+  "raw_sha256": "d64f6be8a8e3d7f3ae46b5c67cbb89415026da7d8a0c83345b50c39982003ee2",
+  "largest_company": {
+    "ticker": "AAPL",
+    "issuerName": "Apple Inc",
+    "units": 111061464,
+    "percentageOfTotalNetAssets": 8.269872,
+    "securityTypeName": "Common Stock",
+    "cusip": "037833100",
+    "currency": "USD",
+    "localCurrencyName": "US Dollar",
+    "securityTypeCode": "COM"
+  },
+  "selection_method": "Rank official common-stock holdings by percentageOfTotalNetAssets; Apple exceeds all others. Alphabet share classes combined remain below Apple.",
+  "panel_status": "Complete: AAPL shared SEC facts, all investor checks, verdicts and memos generated.",
+  "sec_10k_eligible": true,
+  "substitution": "None; largest company Apple has eligible 10-K facts.",
+  "sec_source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+  "sec_as_of": "2026-11-05"
+}
