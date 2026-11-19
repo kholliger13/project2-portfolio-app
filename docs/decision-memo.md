@@ -1,7 +1,10 @@
 # Claim, evidence and committee decision
 
-I used OpenAI Codex to implement, document, and validate the app and replay.
-The analysis and decision are mine. Education, not investment advice.
+I used OpenAI Codex to implement, test and document the app and replay, and Claude
+(Anthropic) to review my plan, draft two predictions at my request (the 23/36 replay and
+the 50 bp cost check), and run one cold run. I wrote the Locked Changed-Input Record
+prediction (24-month window) myself, without AI. The analysis and the decision are mine.
+Education, not investment advice.
 
 ## Portfolio pilot decision
 

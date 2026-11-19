@@ -2,8 +2,11 @@
 
 Kayla Holliger · FIN 43900 · Purdue
 
-I used OpenAI Codex to implement, document, and validate the app and replay.
-The analysis and decision are mine. Education, not investment advice.
+I used OpenAI Codex to implement, test and document the app and replay, and Claude
+(Anthropic) to review my plan, draft two predictions at my request (the 23/36 replay and
+the 50 bp cost check), and run one cold run. I wrote the Locked Changed-Input Record
+prediction (24-month window) myself, without AI. The analysis and the decision are mine.
+Education, not investment advice.
 
 **Portfolio committee decision: keep pilot funding on hold until the mandate scope is confirmed.** The constrained mix passed the historical replay. If the 8% screen applies to the whole sleeve, both the proposed 25/75 pilot (3.49%) and the equal-weight fallback (1.88%) fail on the 23-month estimates. [Committee decision](docs/decision-memo.md#portfolio-pilot-decision) · [Locked prediction and replay](LOCKED_CHANGED_INPUT.md)
 
