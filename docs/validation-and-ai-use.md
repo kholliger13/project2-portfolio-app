@@ -88,7 +88,8 @@ Both vetoes cleared. The prediction expected the volatility veto to trigger. The
 | Run | Result |
 |---|---|
 | First attempt, shared course repository | Failed because no Project 2 README was published. Fixed by publishing this repository with its full local history. |
-| Zachary’s rerun on `ba706d9`, fresh clone, README only | No failure. About 32 seconds from clone to the final replay line, including setup. |
+| Zachary Alvin, `add3cce`, Nov 19 | The completed fresh clone passed in about 46 seconds including setup. The first clone was retried after network access returned. No repository fix was needed. |
+| Claude (Anthropic), `ba706d9`, Nov 17 | No failure. About 32 seconds including setup. |
 
 ## 7. One AI output I checked
 

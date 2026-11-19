@@ -25,18 +25,46 @@ README handoff gap: the shared link needs to resolve directly to Zachary's Proje
 
 Zachary requested the current README link so he can rerun using that link alone. A fresh fetch of the supplied GitHub repository reached `07e1c52` on `origin/main`. That commit contains the KaylaHolliger folder, and the Project 2 README and runnable bundle are still missing. The local publication fix adds both. A rerun can start once that fix is published.
 
-## Zachary’s clean GitHub rerun
+## Zachary's clean GitHub rerun
 
-| Item | Zachary’s report |
+Filled in by Zachary Alvin from his own run, without help from Kayla and without AI tools.
+
+| Item | Zachary's report |
 |---|---|
-| Link | [Project 2 repository](https://github.com/kholliger13/project2-portfolio-app) |
-| Checkout | Fresh clone in an empty folder. `main` at [`ba706d9`](https://github.com/kholliger13/project2-portfolio-app/commit/ba706d9cf56889caf5cc8e7753b880eb12c1ce97), November 17, 2026 at 17:59:40 Eastern. |
-| Commands | `git clone https://github.com/kholliger13/project2-portfolio-app`, then from the clone root, `python3.13 -m venv .venv`, `source .venv/bin/activate`, `python -m pip install -r requirements.txt`, and `sh review.sh && python replay.py`. |
-| First failure | None. Exit code 0 under Python 3.13.18. |
-| Elapsed | About 32 seconds from clone to the final replay line, including environment creation and installation. |
-| Result | Terminal output from `python replay.py` confirmed both vetoes cleared. The funding hold was in the [README](../README.md) and [decision memo](decision-memo.md). |
+| Date and time of run (ET) | Nov 19, 2026, 4:58:51 PM |
+| Link opened | [Project 2 repository](https://github.com/kholliger13/project2-portfolio-app) |
+| Commit reached | [`add3cce`](https://github.com/kholliger13/project2-portfolio-app/commit/add3cce) |
+| Folder | Yes. Git created `work/project2-portfolio-app-cold-run` as a new checkout. |
+| Python version | Python 3.13.15 |
+| Commands run, in order | See below. |
+| First failure | None in the completed run. The first clone attempt could not reach GitHub because there was no network connection: `fatal: unable to access 'https://github.com/kholliger13/project2-portfolio-app.git/': Could not resolve host: github.com`. It succeeded on retry once connected. |
+| Elapsed time | About 46 seconds from opening the repository URL to the final output, including cloning, virtual environment setup, dependency installation and review checks. |
+| Final line of output | `PASS: replay clears both vetoes. Check the blend against the full mandate.` |
+| Where he found the result | Terminal output from `python replay.py`, after `review.sh` passed. |
+| Where he found the recommendation | [`docs/decision-memo.md`, Portfolio pilot decision](https://github.com/kholliger13/project2-portfolio-app/blob/add3cce/docs/decision-memo.md#portfolio-pilot-decision): pilot 25% constrained and 75% equal weight, rebalanced monthly to fixed targets. |
+| Anything confusing in the README | Nothing. The README explains the Streamlit warnings that appeared during the checks. |
 
-No code fix was needed after the successful rerun. Publishing the standalone repository resolved the missing README. The README now explains the expected Streamlit warnings raised during automated review.
+**Commands, in order:**
+
+```sh
+curl -LsS -o /dev/null -w '%{http_code}\n' https://github.com/kholliger13/project2-portfolio-app
+git clone --branch main https://github.com/kholliger13/project2-portfolio-app.git work/project2-portfolio-app-cold-run
+cd work/project2-portfolio-app-cold-run
+git log -1 --format=%h
+sed -n '1,40p' README.md
+rg -n '^## Portfolio pilot decision' docs/decision-memo.md
+python3.13 -m venv .venv
+source .venv/bin/activate
+python --version
+python -m pip install -r requirements.txt
+sh review.sh && python replay.py
+```
+
+No fix was needed.
+
+## Additional cold run by Claude (Anthropic)
+
+At Kayla's request, Claude ran a separate fresh clone of `ba706d9` on Nov 17, 2026, following only the README: no failure, Python 3.13.18, about 32 seconds from clone to the final replay line, including setup.
 
 ## Pre-run cost prediction for Kayla's portfolio
 
@@ -65,7 +93,7 @@ Both vetoes cleared. The 25/75 blend estimated 3.4864% return and held 37.50% in
 
 ### After output at 50 bps
 
-Zachary reported the run on published commit `ba706d9` after the prediction was online. The results were reproduced locally using the same `replay.evaluate()` with `trade_cost=0.005`, the original fit and evaluation dates, and the same target weights.
+The 50 bp run was reported on published commit `ba706d9` after the prediction was online. The results were reproduced locally using the same `replay.evaluate()` with `trade_cost=0.005`, the original fit and evaluation dates, and the same target weights.
 
 | Portfolio | Annualized net return | Annualized volatility | Net return change |
 |---|---:|---:|---:|

@@ -1,6 +1,6 @@
 # Project 2 submission manifest
 
-The [GitHub README handoff](https://github.com/kholliger13/project2-portfolio-app/blob/main/README.md) is complete. Zachary’s fresh clone at `ba706d9` passed with no failures in about 32 seconds.
+The [GitHub README handoff](https://github.com/kholliger13/project2-portfolio-app/blob/main/README.md) is complete. Zachary’s completed fresh clone at `add3cce` passed in about 46 seconds after a network retry. No repository fix was needed.
 
 | Part | Location and status |
 |---|---|
