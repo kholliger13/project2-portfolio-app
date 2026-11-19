@@ -30,7 +30,7 @@ Reaching 8% requires about 95.24% constrained. The cost stress at 0, 10 and 25 b
 | Use the last 36 months, with the same 8% objective and 20% floor | LQD rose from 55% to 80%. Estimated volatility moved from 11.43% to 7.40%. |
 | Raise the return objective to 30% with the bundled inputs | No grid mix satisfies both screens. The app displays the stop message and the constrained verdict fails. |
 
-PAYEMS is admitted for monitoring only. The October 4, 2024 decision shows no signal with same-day releases excluded. On October 5, the October 4 vintage becomes eligible and the September signal is **+254 thousand jobs**. That positive reading does not trigger a review. On March 7, 2026, the eligible February reading was −92 thousand jobs, which sends the pilot back to the committee. Portfolio weights are unaffected.
+PAYEMS is admitted for monitoring only. The October 4, 2024 decision shows no signal with same-day releases excluded. On October 5, the October 4 vintage becomes eligible and the September signal is **+254 thousand jobs**. That positive reading does not trigger a review. On March 7, 2026, the eligible February reading was −92 thousand jobs. The February 12 decision gave a January reading of +130 thousand jobs, so no review is triggered. Refer the pilot to the committee if the point-in-time PAYEMS change is negative for two consecutive months, each measured in the vintage available the day before that month’s decision. Portfolio weights are unaffected.
 
 **Latest captured PAYEMS reading:** **+29 thousand jobs** (September 159,044 minus August 159,015), from the [October 2, 2026 vintage](../payems_source_vintages/PAYEMS_2026-10-02.csv), eligible on October 3. No committee review is triggered by this reading.
 

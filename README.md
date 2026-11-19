@@ -7,7 +7,7 @@ The analysis and decision are mine. Education, not investment advice.
 
 **Portfolio committee decision: keep pilot funding on hold until the mandate scope is confirmed.** The constrained mix passed the historical replay. If the 8% screen applies to the whole sleeve, both the proposed 25/75 pilot (3.49%) and the equal-weight fallback (1.88%) fail on the 23-month estimates. [Committee decision](docs/decision-memo.md#portfolio-pilot-decision) · [Locked prediction and replay](LOCKED_CHANGED_INPUT.md)
 
-PAYEMS is the Project 2 point-in-time signal for monitoring. If the payroll change from the previous day's ALFRED information set is negative, the pilot goes back to the committee. PAYEMS does not set portfolio weights. [Data card](evidence/PAYEMS_data_card_2026_10_29.md) · [PAYEMS decision](docs/decision-memo.md#payems-data-decision)
+PAYEMS is the project’s point-in-time signal, used as a monitoring trigger: if the point-in-time payroll change is negative for two consecutive months, the pilot goes back to the committee. [Data card](evidence/PAYEMS_data_card_2026_10_29.md) · [PAYEMS decision](docs/decision-memo.md#payems-data-decision)
 
 ## Run from a clean checkout
 
@@ -25,7 +25,7 @@ The last command prints the three Meridian baselines, then verifies both portfol
 | Demo | Command | What to reproduce |
 |---|---|---|
 | Portfolio | `python -m streamlit run app.py` | Keep the six-fund CSV, 8% objective and 20% reserve floor. Switch from **All returns** to **Last 36 months**. LQD rises from 55% to 80%. Scroll to **Mandate verdicts** for the two baselines and constrained mix. |
-| Rates and PAYEMS | `python -m streamlit run rates_app.py` | Start on October 4, 2024 with same-day releases excluded. In the PAYEMS tab, toggle same-day releases to see a comparison. For the next-day monitoring signal, clear the Rates selection before changing the date to October 5. |
+| Rates and PAYEMS | `python -m streamlit run rates_app.py` | Start on October 4, 2024 with same-day releases excluded. In the PAYEMS tab, toggle same-day releases to see a comparison. For the next-day monitoring signal, clear the Rates selection before changing the date to October 5. For a negative reading, enter the actual previous month’s committee decision date to evaluate the two-month trigger. |
 | Live comparison, optional | `python -m streamlit run asof_app.py` | Compare current FRED data with a historical ALFRED vintage. The app requires internet access. Its test in `review.sh` uses controlled responses. |
 
 Stop each Streamlit server with Ctrl+C. Keep the default historical dates and avoid the refresh button for the frozen rates demo. Uncached or refreshed vintages need internet access. `prices.csv` is the frozen input for the six-fund portfolio app.

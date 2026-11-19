@@ -85,34 +85,57 @@ with rates_tab:
     elif not selected:
         st.info('Choose at least one rate to explore.')
 
+def payroll_change(rows):
+    if len(rows) < 2:
+        return None
+    previous, latest = rows[-2:]
+    month = pd.Period(latest['month measured'], freq='M')
+    if pd.Period(previous['month measured'], freq='M') + 1 != month:
+        return None
+    return month, float(latest['value']) - float(previous['value'])
+
+
 with payroll_tab:
     st.subheader('PAYEMS · employment levels, not interest rates')
     st.caption('Monthly · seasonally adjusted · thousands of persons. Saved October 27, 2026.')
     st.link_button('PAYEMS · your prework series on FRED', 'https://fred.stlouisfed.org/series/PAYEMS')
     events = read_rows(ROOT / 'payems_vintages.csv')
     eligible = point_in_time(events, str(decision), before)
-    eligible = [r for r in eligible if str(start) <= r['month measured'] <= str(decision)]
-    st.write('For each measured month, keep the latest publication eligible by the cutoff. Later revisions remain excluded.')
     outside_capture = decision > date(2026, 10, 27)
+    signal = payroll_change(eligible)
     if outside_capture:
-        st.warning('This frozen dataset stops at the October 27 retrieval cutoff. It cannot establish what became available after that date.')
-    if eligible:
-        panel = pd.DataFrame(eligible)
+        st.warning("Project 2 monitoring signal unavailable outside the captured decision dates.")
+    elif signal is None:
+        st.info("PAYEMS monthly change signal unavailable: two consecutive months are required.")
+    else:
+        month, change = signal
+        label = "Project 2 PAYEMS monitoring signal" if before else "PAYEMS same-day comparison"
+        st.write(f"{label} for {month}: {change:+,g} thousand jobs.")
+        if before and change < 0:
+            prior_month = (pd.Timestamp(decision) - pd.DateOffset(months=1)).date()
+            previous_decision = st.date_input(
+                "Previous month's committee decision date", value=None,
+                min_value=prior_month.replace(day=1),
+                max_value=decision.replace(day=1) - pd.Timedelta(days=1),
+                key=f"prior_payems_decision_{decision}",
+            )
+            prior_signal = None
+            if previous_decision is not None:
+                prior_signal = payroll_change(point_in_time(events, str(previous_decision), True))
+            if prior_signal is None or prior_signal[0] + 1 != month:
+                st.info("Review trigger unavailable until both decision dates have consecutive payroll readings.")
+            else:
+                prior_period, prior_change = prior_signal
+                st.caption(f"Prior decision {previous_decision}: {prior_period} payroll change "
+                           f"{prior_change:+,g} thousand jobs.")
+                if prior_change < 0:
+                    st.warning("Committee review triggered: two consecutive negative PAYEMS readings.")
+    if not before:
+        st.caption("Same-day values are shown for comparison only. Project 2 uses the previous-day vintage.")
+    visible = [r for r in eligible if str(start) <= r['month measured']]
+    if visible:
+        panel = pd.DataFrame(visible)
         panel['value'] = pd.to_numeric(panel['value'])
-        latest = panel.sort_values('month measured').tail(2)
-        periods = pd.PeriodIndex(latest['month measured'], freq='M')
-        if outside_capture:
-            st.info("Project 2 monitoring signal unavailable outside the captured decision dates.")
-        elif len(periods) == 2 and periods[0] + 1 == periods[1]:
-            change = latest['value'].iloc[-1] - latest['value'].iloc[0]
-            label = "Project 2 PAYEMS monitoring signal" if before else "PAYEMS same-day comparison"
-            st.write(f"{label} for {periods[-1]}: {change:+,} thousand jobs.")
-            if before and change < 0:
-                st.warning("Committee review triggered: negative PAYEMS payroll change.")
-        else:
-            st.info("PAYEMS monthly change signal unavailable: two consecutive months are required.")
-        if not before:
-            st.caption("Same-day values are shown for comparison only. Project 2 uses the previous-day vintage.")
         st.line_chart(panel.set_index('month measured')['value'], y_label='Thousands of persons')
         st.dataframe(panel, hide_index=True, width='stretch')
         st.download_button('Download knowable PAYEMS panel', panel.to_csv(index=False), f'payems_selected_{decision}.csv', 'text/csv')
@@ -127,8 +150,7 @@ with payroll_tab:
 with eligibility_tab:
     st.subheader('Project 2 · PAYEMS admitted for monitoring')
     st.markdown('''Use the previous calendar day's ALFRED information set. Subtract the prior month's
-eligible payroll level from the latest month's eligible level. A negative payroll change sends
-the pilot back to the committee. The signal does not set portfolio weights.
+eligible payroll level from the latest month's eligible level. Refer the pilot to the committee if the point-in-time PAYEMS change is negative for two consecutive months, each measured in the vintage available the day before that month’s decision. The signal does not set portfolio weights.
 
 The saved observations span August 2024 through September 2026. This sample is too short to establish
 predictive value. The same-day option is a historical comparison.''')

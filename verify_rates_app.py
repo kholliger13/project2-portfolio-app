@@ -1,5 +1,6 @@
 """Boundary, source-integrity and UI checks for the rates app."""
 from datetime import date
+from unittest.mock import patch
 from rates_data import CLASS_SERIES, FREQUENCY, parse_snapshot, request_details, snapshot
 from payems_point_in_time import ROOT, point_in_time, read_rows
 
@@ -57,25 +58,45 @@ def verify():
     assert not any("Project 2 PAYEMS monitoring signal for" in entry.value for entry in app.markdown)
     app.multiselect[0].set_value([]).run(timeout=120)
     app.checkbox[0].check().run(timeout=120)
-    app.date_input[0].set_value(date(2024, 10, 5)).run(timeout=120)
+    app.sidebar.date_input[0].set_value(date(2024, 10, 5)).run(timeout=120)
     assert not app.exception
     assert any("Project 2 PAYEMS monitoring signal for 2024-09: +254 thousand jobs" in entry.value
                for entry in app.markdown)
     assert not any("Committee review triggered" in entry.value for entry in app.warning)
-    app.date_input[0].set_value(date(2026, 3, 7)).run(timeout=120)
+    app.sidebar.date_input[0].set_value(date(2026, 3, 7)).run(timeout=120)
     assert not app.exception
     assert any("monitoring signal for 2026-02: -92 thousand jobs" in entry.value
                for entry in app.markdown)
-    assert any("Committee review triggered" in entry.value for entry in app.warning)
-    app.date_input[0].set_value(date(2026, 10, 3)).run(timeout=120)
+    app.main.date_input[0].set_value(date(2026, 2, 12)).run(timeout=120)
+    assert any("2026-01 payroll change +130 thousand jobs" in entry.value for entry in app.caption)
+    assert not any("Committee review triggered" in entry.value for entry in app.warning)
+    app.sidebar.date_input[0].set_value(date(2026, 10, 3)).run(timeout=120)
     assert not app.exception
     assert any("monitoring signal for 2026-09: +29 thousand jobs" in entry.value
                for entry in app.markdown)
     assert not any("Committee review triggered" in entry.value for entry in app.warning)
-    app.date_input[0].set_value(date(2024, 7, 1)).run(timeout=120)
+    app.sidebar.date_input[0].set_value(date(2024, 7, 1)).run(timeout=120)
     assert not app.exception
-    assert app.date_input[1].value <= date(2024, 7, 1)
-    print('PASS: previous-day cutoff; missing values; wrong vintage, HTML, duplicate and nonfinite rejection; historical DGS10 source value; PAYEMS release boundary; Streamlit default, before-release and empty selection.')
+    assert app.sidebar.date_input[1].value <= date(2024, 7, 1)
+    # A later upward revision to August cannot replace the prior decision's August reading.
+    revised_vintages = [
+        {"series name": "PAYEMS", "month measured": month, "published on": published, "value": value}
+        for month, published, value in (
+            ("2024-07-01", "2024-08-02", "1000"),
+            ("2024-08-01", "2024-09-02", "999"),
+            ("2024-08-01", "2024-10-02", "1001"),
+            ("2024-09-01", "2024-10-02", "998"),
+        )
+    ]
+    with patch("payems_point_in_time.read_rows", return_value=revised_vintages):
+        app = AppTest.from_file(str(ROOT / 'rates_app.py')).run(timeout=120)
+        assert not app.exception
+        assert not any("Committee review triggered" in entry.value for entry in app.warning)
+        app.main.date_input[0].set_value(date(2024, 9, 4)).run(timeout=120)
+        assert not app.exception
+        assert any("2024-08 payroll change -1 thousand jobs" in entry.value for entry in app.caption)
+        assert any("Committee review triggered" in entry.value for entry in app.warning)
+    print('PASS: previous-day cutoff; missing values; wrong vintage, HTML, duplicate and nonfinite rejection; historical DGS10 source value; PAYEMS release boundary; Streamlit default, before-release and empty selection; two-month trigger with independent vintages.')
 
 if __name__ == '__main__':
     verify()
