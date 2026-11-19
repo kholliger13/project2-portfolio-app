@@ -58,7 +58,7 @@ Base case (all 59 months, 8% objective, at least 20% in LQD + TLT): QQQ 20% / XL
 | Estimated return | 8.4% | 8.79% |
 | Volatility | 12.0% | 6.70% |
 | Direction vs. 59-month answer (8.31% / 11.43%, LQD 55%) | Slightly higher return and volatility, LQD down 10 points | Return up (as predicted); volatility down 4.73 points; LQD up 5 points |
-| Effect on the decision | Keep the 8% objective and shift 10 points from LQD to equities | No change: funding hold remains pending the 8% scope |
+| Effect on the decision | Keep the 8% objective and shift 10 points from LQD to equities | No change to the decision. At the time of the run, funding was on hold pending the 8% scope; that was resolved Nov 19 and the recommendation is now a 25% pilot (see the decision memo). |
 
 **My reasoning before the run.** The shorter window will estimate a lower return for LQD relative to equities, so the minimum-volatility mix that clears 8% will need more equity exposure. That shift should raise volatility slightly. LQD should fill the bond allocation because TLT's longer duration makes it more sensitive to rate moves.
 
