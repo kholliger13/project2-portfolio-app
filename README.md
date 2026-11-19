@@ -56,4 +56,4 @@ Read the [claim and decision](docs/decision-memo.md), [SR 26-2 model validation 
 
 Educational work with AI assistance. The Meridian and classroom fixtures use supplied training inputs.
 
-See [visible output](docs/results.md) and the [submission manifest](docs/submission-manifest.md).
+See [visible output](docs/results.md), [validation and AI use](docs/validation-and-ai-use.md), and the [submission manifest](docs/submission-manifest.md).
