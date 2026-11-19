@@ -61,4 +61,4 @@ I trust publication date least because the app’s October 29 PAYEMS request ret
 
 Subtract the previous month's nonfarm payroll level from the latest month's level, in thousands of jobs, using two consecutive months from the previous calendar day's ALFRED information set. Same-day releases are excluded. On October 4, 2024, only August is eligible and the signal is unavailable. On October 5, the October 4 vintage is eligible and September minus August is 159,105 − 158,851 = **+254 thousand jobs**.
 
-Review new eligible releases or revisions at the committee. The capture covers August 2024–September 2026 and is too short to test predictive value. This signal does not set portfolio weights.
+A negative eligible payroll change sends the pilot back to the committee. The capture covers August 2024–September 2026 and is too short to test predictive value. This signal does not set portfolio weights.

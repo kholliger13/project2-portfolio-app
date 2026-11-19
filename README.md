@@ -7,7 +7,7 @@ The analysis and decision are mine. Education, not investment advice.
 
 **Portfolio committee decision: keep pilot funding on hold until the mandate scope is confirmed.** The constrained mix passed the historical replay. If the 8% screen applies to the whole sleeve, both the proposed 25/75 pilot (3.49%) and the equal-weight fallback (1.88%) fail on the 23-month estimates. [Committee decision](docs/decision-memo.md#portfolio-pilot-decision) · [Locked prediction and replay](LOCKED_CHANGED_INPUT.md)
 
-PAYEMS is admitted as the Project 2 point-in-time signal for committee monitoring only. It uses the previous day's ALFRED information set and does not set portfolio weights. [PAYEMS decision](docs/decision-memo.md#payems-data-decision)
+PAYEMS is the Project 2 point-in-time signal for monitoring. If the payroll change from the previous day's ALFRED information set is negative, the pilot goes back to the committee. PAYEMS does not set portfolio weights. [Data card](evidence/PAYEMS_data_card_2026_10_29.md) · [PAYEMS decision](docs/decision-memo.md#payems-data-decision)
 
 ## Run from a clean checkout
 

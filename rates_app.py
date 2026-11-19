@@ -107,6 +107,8 @@ with payroll_tab:
             change = latest['value'].iloc[-1] - latest['value'].iloc[0]
             label = "Project 2 PAYEMS monitoring signal" if before else "PAYEMS same-day comparison"
             st.write(f"{label} for {periods[-1]}: {change:+,} thousand jobs.")
+            if before and change < 0:
+                st.warning("Committee review triggered: negative PAYEMS payroll change.")
         else:
             st.info("PAYEMS monthly change signal unavailable: two consecutive months are required.")
         if not before:
@@ -125,8 +127,8 @@ with payroll_tab:
 with eligibility_tab:
     st.subheader('Project 2 · PAYEMS admitted for monitoring')
     st.markdown('''Use the previous calendar day's ALFRED information set. Subtract the prior month's
-eligible payroll level from the latest month's eligible level. Review each new eligible reading or
-revision at the committee; the signal does not set portfolio weights.
+eligible payroll level from the latest month's eligible level. A negative payroll change sends
+the pilot back to the committee. The signal does not set portfolio weights.
 
 The saved observations span August 2024 through September 2026. This sample is too short to establish
 predictive value. The same-day option is a historical comparison.''')

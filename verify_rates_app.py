@@ -61,6 +61,12 @@ def verify():
     assert not app.exception
     assert any("Project 2 PAYEMS monitoring signal for 2024-09: +254 thousand jobs" in entry.value
                for entry in app.markdown)
+    assert not any("Committee review triggered" in entry.value for entry in app.warning)
+    app.date_input[0].set_value(date(2026, 3, 7)).run(timeout=120)
+    assert not app.exception
+    assert any("monitoring signal for 2026-02: -92 thousand jobs" in entry.value
+               for entry in app.markdown)
+    assert any("Committee review triggered" in entry.value for entry in app.warning)
     app.date_input[0].set_value(date(2024, 7, 1)).run(timeout=120)
     assert not app.exception
     assert app.date_input[1].value <= date(2024, 7, 1)

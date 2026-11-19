@@ -24,6 +24,6 @@ Open each recording with an accurate AI disclosure. For example, “I used OpenA
 
 - Lead with the vote. Hold pilot funding until the committee or instructor confirms which portfolio the 8% estimate screens. Recommend applying it to the funded sleeve.
 - Show the replay result and the funding check. The constrained mix passed both replay vetoes. On the same 23-month fit, the 25/75 blend estimates 3.49% and the equal-weight fallback 1.88%. The pilot and fallback both fail if the screen applies to the sleeve.
-- State what would reopen the decision. If the screen applies to the constrained allocation and the remaining sleeve checks pass, start at 25%. Review any proposed fund weight change above 15 percentage points. A binding mandate failure blocks funding or continued use. A new eligible PAYEMS reading or revision triggers committee review. PAYEMS does not set weights.
+- State what would reopen the decision. If the screen applies to the constrained allocation and the remaining sleeve checks pass, start at 25%. Review any proposed fund weight change above 15 percentage points. A binding mandate failure blocks funding or continued use. A negative point-in-time PAYEMS payroll change sends the pilot back to the committee. PAYEMS does not set weights.
 
 These briefs are ready for recording. Submission links can be added once the three recordings exist.
