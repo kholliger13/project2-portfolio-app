@@ -32,4 +32,6 @@ Reaching 8% requires about 95.24% constrained. The cost stress at 0, 10 and 25 b
 
 PAYEMS is admitted for monitoring only. The October 4, 2024 decision shows no signal with same-day releases excluded. On October 5, the October 4 vintage becomes eligible and the September signal is **+254 thousand jobs**. That positive reading does not trigger a review. On March 7, 2026, the eligible February reading was −92 thousand jobs, which sends the pilot back to the committee. Portfolio weights are unaffected.
 
+**Latest captured PAYEMS reading:** **+29 thousand jobs** (September 159,044 minus August 159,015), from the [October 2, 2026 vintage](../payems_source_vintages/PAYEMS_2026-10-02.csv), eligible on October 3. No committee review is triggered by this reading.
+
 [Decision memo](decision-memo.md) · [Locked record](../LOCKED_CHANGED_INPUT.md) · [Run instructions](../README.md)
