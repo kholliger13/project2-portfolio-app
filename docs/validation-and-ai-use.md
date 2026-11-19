@@ -47,22 +47,22 @@ Base case (all 59 months, 8% objective, at least 20% in LQD + TLT): QQQ 20% / XL
 
 **Record.** [24-month prediction](locked-record-24-month.md).
 
-**Provenance.** I wrote this prediction myself, without AI assistance. Claude suggested the input to test and the template. The prediction values and reasoning are mine. Verified [`ee774a4`](https://github.com/kholliger13/project2-portfolio-app/commit/ee774a48385672d4ef86fcbcda76412fac70f0fe) on GitHub before the test. The commit is dated Nov 19, 2026 at 4:12:42 p.m. ET. The run began at 4:14:18 p.m. ET.
+**Provenance.** I wrote this prediction myself, without AI. Claude suggested the input to test and the template; the prediction values and reasoning are mine. Verified [`ee774a4`](https://github.com/kholliger13/project2-portfolio-app/commit/ee774a48385672d4ef86fcbcda76412fac70f0fe) on GitHub before the test. The commit is dated Nov 19, 2026, 4:12:42 PM ET. The run began at 4:14:18 p.m. ET.
 
 **Input changed.** Estimation window, from all 59 monthly returns to the last 24 (Oct 2024–Sep 2026). Held fixed: 8% objective, at least 20% LQD + TLT, 5-point grid, long-only, minimum volatility.
 
 | Field | My prediction | Actual |
 |---|---|---|
-| Qualifying mix found? | Yes | Yes, 31,774 of 53,130 |
-| Weights | 45% LQD, 0% TLT, 55% equities | 60% LQD, 0% TLT, 20% QQQ, 15% XLE, 5% EWZ |
+| Qualifying mix found? | Yes | Yes (31,774 of 53,130) |
+| Weights | 45% LQD, 0% TLT, 55% equities | 60% LQD, 0% TLT, 40% equities (QQQ 20, XLE 15, EWZ 5) |
 | Estimated return | 8.4% | 8.79% |
 | Volatility | 12.0% | 6.70% |
-| Direction vs. 59-month answer (8.31% / 11.43%, LQD 55%) | Slightly higher return and volatility, LQD down 10 points | Return +0.49 points, volatility −4.73 points, LQD +5 points |
-| Effect on the decision | Keep the 8% objective and shift 10 points from LQD to equities | Keep the 8% objective and the funding hold. The test allocated more to LQD. |
+| Direction vs. 59-month answer (8.31% / 11.43%, LQD 55%) | Slightly higher return and volatility, LQD down 10 points | Return up (as predicted); volatility down 4.73 points; LQD up 5 points |
+| Effect on the decision | Keep the 8% objective and shift 10 points from LQD to equities | No change: funding hold remains pending the 8% scope |
 
 **My reasoning before the run.** The shorter window will estimate a lower return for LQD relative to equities, so the minimum-volatility mix that clears 8% will need more equity exposure. That shift should raise volatility slightly. LQD should fill the bond allocation because TLT's longer duration makes it more sensitive to rate moves.
 
-**What happened and why.** LQD's estimated volatility fell from 9.87% to 5.64%. The equity sleeves still supplied enough estimated return to clear 8% with more LQD. The resulting fit increased LQD to 60% and lowered estimated portfolio volatility. Funding still depends on mandate scope.
+**What happened and why.** The return direction and TLT at 0% were right; the weights and volatility went the opposite way. My premise held: over the last 24 months the equity estimates rose (QQQ 16.0% to 23.1%, FBMPX 14.7% to 25.3%) while LQD stayed near -0.4%. But because the 8% target is fixed, higher equity returns let the optimizer reach 8% with fewer equities, so it held more LQD, not less. LQD's volatility also fell from 9.9% to 5.6% in the shorter window, which lowered total volatility instead of raising it. The decision does not change. Across three windows LQD is 55%, 80% and 60% under the same mandate, which supports the window-instability finding and the 15-point monitoring trigger. Claude helped me interpret the result; the prediction above was written without AI.
 
 ## 5. Supporting evidence: 23/36 historical replay
 
