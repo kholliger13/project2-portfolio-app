@@ -8,7 +8,7 @@ the 50 bp cost check), and run one cold run. I wrote the Locked Changed-Input Re
 prediction (24-month window) myself, without AI. The analysis and the decision are mine.
 Education, not investment advice.
 
-**Portfolio committee decision: keep pilot funding on hold until the mandate scope is confirmed.** The constrained mix passed the historical replay. If the 8% screen applies to the whole sleeve, both the proposed 25/75 pilot (3.49%) and the equal-weight fallback (1.88%) fail on the 23-month estimates. [Committee decision](docs/decision-memo.md#portfolio-pilot-decision) · [Locked prediction and replay](LOCKED_CHANGED_INPUT.md)
+**Portfolio committee decision: pilot 25% constrained and 75% equal weight, rebalanced monthly to fixed targets.** The funded sleeve clears the 8% screen on the decision-date estimates. Consider expanding toward 50% only after six months of live results clear both replay vetoes. [Committee decision and triggers](docs/decision-memo.md#portfolio-pilot-decision) · [Historical replay](LOCKED_CHANGED_INPUT.md)
 
 PAYEMS is the project’s point-in-time signal, used as a monitoring trigger: if the point-in-time payroll change is negative for two consecutive months, the pilot goes back to the committee. [Data card](evidence/PAYEMS_data_card_2026_10_29.md) · [PAYEMS decision](docs/decision-memo.md#payems-data-decision)
 
@@ -35,7 +35,7 @@ Stop each Streamlit server with Ctrl+C. Keep the default historical dates and av
 
 ## Portfolio mandate and stress demo
 
-The six-fund sleeve uses QQQ, XLE, EWZ, LQD, TLT and FBMPX. The objective is minimum estimated annualized volatility on the 5-point grid, with at least 8% estimated annual return and at least 20% combined in LQD and TLT. Weights are fully invested and long-only. Equal weight is the comparison benchmark, with inverse volatility as the second transparent baseline. The scope of the 8% screen for funding is pending committee confirmation. The Meridian training case is a separate app mode.
+The six-fund sleeve uses QQQ, XLE, EWZ, LQD, TLT and FBMPX. The objective is minimum estimated annualized volatility on the 5-point grid, with at least 8% estimated annual return and at least 20% combined in LQD and TLT. Weights are fully invested and long-only. Equal weight is the comparison benchmark, with inverse volatility as the second transparent baseline. The 8% screen applies to the funded sleeve using estimates available at the decision date. The replay provides historical evidence on the constrained allocation. The Meridian training case is a separate app mode.
 
 In the portfolio app, change the estimation window, edit a return estimate, or raise the return objective to 30% with the bundled defaults. Read each verdict and the stop message when no mix satisfies both screens. The replay command varies costs at 0, 10 and 25 basis points on the same fixed targets. The locked result uses 10 basis points.
 

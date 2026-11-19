@@ -98,11 +98,11 @@ Both vetoes cleared. The prediction expected the volatility veto to trigger. The
 
 **What I found.** The claim held only on the 59-month estimates. On the 23-month fit, equal weight estimates 1.88%, and the 25/75 pilot estimates 3.49%. Both clear the bond floor and fail the 8% screen if it applies to the funded sleeve. A blend needs about 95.24% in the constrained mix to pass.
 
-**What changed.** The recommendation became “hold funding until the scope of the 8% screen is confirmed,” and the memo and Video 3 brief show both readings.
+**What changed.** The historical check exposed the funding risk of applying the 23-month estimates to the whole sleeve. Following the professor’s guidance, I apply the screen to decision-date estimates. The funded 25/75 blend clears 8% in all three windows, supporting the pilot. [Decision memo](decision-memo.md#portfolio-pilot-decision)
 
 ## 8. Limits
 
 - The return figures come from historical estimates and a historical replay. The later 36 months had already been seen.
 - Volatility measures variability. Maximum loss requires separate evaluation.
 - PAYEMS is admitted for monitoring only. Its captured coverage (Aug 2024–Sep 2026) is too short to test predictive value. It does not set weights.
-- The scope of the 8% screen is pending committee confirmation.
+- The funding screen uses estimates available at the decision date. Expansion beyond 25% requires six months of live results that clear both replay vetoes.

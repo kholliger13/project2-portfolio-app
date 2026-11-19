@@ -8,18 +8,32 @@ Education, not investment advice.
 
 ## Portfolio pilot decision
 
-I'm holding funding on my Project 2 recommendation until one mandate question is confirmed: does the 8% estimated-return screen apply to the whole funded sleeve, or only to the constrained allocation?
+Pilot. Allocate 25% of the Diversified Growth sleeve to the constrained process and 75%
+to equal weight, rebalanced monthly to fixed targets. Range 25–50%: expand toward 50% only
+after six months of live results clear the same two vetoes used in the replay. The funded
+sleeve holds at least 38.8% in LQD and TLT and has lower estimated volatility than equal
+weight in all three windows.
 
-The answer decides the outcome:
+Professor's guidance, Nov 19, 2026: the 8% screen may apply to either the funded sleeve
+or the constrained allocation; if the sleeve fails, test the constrained allocation. No
+estimation window is perfectly current or perfectly historical. I apply the screen to the
+funded sleeve on estimates available at the decision date and report the replay as
+historical evidence. The pilot passes both ways: the 25/75 sleeve estimates 9.58% (all
+59 months; 13.47% with 36, 12.70% with 24), and the constrained allocation alone passed
+on the 2021–2023 training estimates (8.31%), where the sleeve estimated 3.49%.
 
-- Allocation-level: the constrained allocation passes at 8.31% on the 23-month fit and cleared both locked replay vetoes, so the 25% pilot stands.
-- Sleeve-level: the 25/75 pilot (3.49%), the equal-weight fallback (1.88%), and a 50/50 blend (5.09%) all fail the return screen, though all clear the 20% bond floor. A blend would need at least 95.24% in the constrained allocation to pass, which is outside the pilot range.
+**Triggers (any one returns the pilot to the committee):**
 
-Expansion toward 50% still requires a genuinely unseen test. The earlier 10.00% equal-weight estimate used the full 59-month window.
+1. Any fund's newly proposed weight moves more than 15 points from the prior month's proposal.
+2. The point-in-time PAYEMS change is negative for two consecutive months.
+3. At a monthly re-estimate, the funded sleeve's estimated return falls below 8% or LQD + TLT falls below 20%.
+4. After six months, the constrained portion's realized net return is below 8% annualized,
+   or its realized volatility is at least equal weight's.
+
+**Reversal:** if trigger 3 or 4 fires, revert to 100% equal weight, if equal weight passes the
+mandate at that re-estimate, and reject the process.
 
 **Changed input and result.** Run `python replay.py` after README setup. The fit uses the first 23 monthly returns in place of the full 59. Over the following 36 months, the constrained mix earned 11.34% annualized after costs at 9.45% volatility, versus 15.69% at 9.96% for equal weight. The two locked vetoes were less than 8% net return and volatility at least as high as equal weight. Neither triggered. The proposed blend clears the 20% bond floor at 37.50% and has a training-period return estimate of 3.49%. [Locked prediction and replay](../LOCKED_CHANGED_INPUT.md)
-
-**Monitor and reversal.** If funded, compare each month's proposed optimizer weights with the prior proposal. A move greater than 15 percentage points in any fund triggers committee review. Refer the pilot to the committee if the point-in-time PAYEMS change is negative for two consecutive months, each measured in the vintage available the day before that month’s decision. A binding mandate failure blocks funding or continued use.
 
 ## PAYEMS data decision
 
