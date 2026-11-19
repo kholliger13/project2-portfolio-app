@@ -45,7 +45,7 @@ AI assistance: Codex helped run the app exercise, compare downloaded values, and
 
 I trust publication date least because the app’s October 29 PAYEMS request returned an ALFRED snapshot labeled October 28, and the CSV does not give an exact publication time for each observation. The app directly detected two revised observations since September 30, while the [FRED PAYEMS page](https://fred.stlouisfed.org/series/PAYEMS) explicitly identifies the units as thousands of persons, so revisions and units have clearer evidence than availability before a particular trade.
 
-**Project 2 decision — Quarantine:** PAYEMS is published after the measured month and revised in the next two monthly releases and through annual benchmark and seasonal-adjustment updates; the app showed December 2024 at 159,536 in the January 15, 2025 vintage versus 158,316 today (thousands of persons). Admit only if Project 2 permits this economic input and each decision uses the eligible historical vintage with verified availability before the trade, sufficient sample coverage, and a documented cutoff convention; never use today’s revised values with a fixed lag as a substitute.
+**October 29 decision — Quarantine (superseded):** PAYEMS is published after the measured month and revised in the next two monthly releases and through annual benchmark and seasonal-adjustment updates; the app showed December 2024 at 159,536 in the January 15, 2025 vintage versus 158,316 today (thousands of persons). Admit only if Project 2 permits this economic input and each decision uses the eligible historical vintage with verified availability before the trade, sufficient sample coverage, and a documented cutoff convention; never use today’s revised values with a fixed lag as a substitute.
 
 ## Final verification — October 29, 2026
 
@@ -55,6 +55,10 @@ I trust publication date least because the app’s October 29 PAYEMS request ret
 - Automated checks passed for default controls, custom IDs, unknown-ID isolation, missing values, revision counts, cache behavior, and rejection of future returned vintages.
 - This card contains the source, measurement, units, publication lag, revision behavior and download date, followed by the two-sentence publication-date answer and the quarantine decision with conditions for admission.
 
-## Point-in-time signal
+## Project 2 point-in-time monitoring signal
 
-The rates app subtracts the previous month's eligible PAYEMS level from the latest month's eligible level, in thousands of jobs. Both values use the same cutoff and must cover consecutive months. Including same-day publications on October 4, 2024 gives September minus August, or 159,105 − 158,851 = **+254 thousand jobs**. Excluding same-day publications leaves only August in the captured window, so the signal is unavailable. This classroom signal is not used to fit or trade the portfolio.
+**Decision:** Admit PAYEMS for monitoring only. The Project 2 instructions require one point-in-time signal and do not restrict the series type.
+
+Subtract the previous month's nonfarm payroll level from the latest month's level, in thousands of jobs, using two consecutive months from the previous calendar day's ALFRED information set. Same-day releases are excluded. On October 4, 2024, only August is eligible and the signal is unavailable. On October 5, the October 4 vintage is eligible and September minus August is 159,105 − 158,851 = **+254 thousand jobs**.
+
+Review new eligible releases or revisions at the committee. The capture covers August 2024–September 2026 and is too short to test predictive value. This signal does not set portfolio weights.

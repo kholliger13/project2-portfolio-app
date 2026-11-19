@@ -30,6 +30,6 @@ Reaching 8% requires about 95.24% constrained. The cost stress at 0, 10 and 25 b
 | Use the last 36 months, with the same 8% objective and 20% floor | LQD rose from 55% to 80%. Estimated volatility moved from 11.43% to 7.40%. |
 | Raise the return objective to 30% with the bundled inputs | No grid mix satisfies both screens. The app displays the stop message and the constrained verdict fails. |
 
-At the October 4, 2024 PAYEMS cutoff, including same-day releases gives a September signal of +254 thousand jobs. Excluding same-day releases leaves the signal unavailable. PAYEMS is a separate classroom signal.
+PAYEMS is admitted for monitoring only. The October 4, 2024 decision shows no signal with same-day releases excluded. On October 5, the October 4 vintage becomes eligible and the September signal is **+254 thousand jobs**. That reading can trigger committee review. Portfolio weights are unaffected.
 
 [Decision memo](decision-memo.md) · [Locked record](../LOCKED_CHANGED_INPUT.md) · [Run instructions](../README.md)

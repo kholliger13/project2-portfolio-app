@@ -17,7 +17,7 @@ st.title('Rates · As Known')
 st.write('Explore the economic information available on a historical date.')
 st.sidebar.header('Choose your information set')
 decision = st.sidebar.date_input('Decision date', date(2024, 10, 4), max_value=date.today())
-before = st.sidebar.checkbox('Exclude all same-day publications', value=False,
+before = st.sidebar.checkbox('Exclude all same-day publications', value=True,
                             help='Uses the previous calendar day’s vintage. This is a conservative date-only convention, not an intraday reconstruction.')
 if st.session_state.get('rates_start', decision) > decision:
     del st.session_state['rates_start']
@@ -93,18 +93,24 @@ with payroll_tab:
     eligible = point_in_time(events, str(decision), before)
     eligible = [r for r in eligible if str(start) <= r['month measured'] <= str(decision)]
     st.write('For each measured month, keep the latest publication eligible by the cutoff. Later revisions remain excluded.')
-    if decision > date(2026, 10, 27):
+    outside_capture = decision > date(2026, 10, 27)
+    if outside_capture:
         st.warning('This frozen dataset stops at the October 27 retrieval cutoff. It cannot establish what became available after that date.')
     if eligible:
         panel = pd.DataFrame(eligible)
         panel['value'] = pd.to_numeric(panel['value'])
         latest = panel.sort_values('month measured').tail(2)
         periods = pd.PeriodIndex(latest['month measured'], freq='M')
-        if len(periods) == 2 and periods[0] + 1 == periods[1]:
+        if outside_capture:
+            st.info("Project 2 monitoring signal unavailable outside the captured decision dates.")
+        elif len(periods) == 2 and periods[0] + 1 == periods[1]:
             change = latest['value'].iloc[-1] - latest['value'].iloc[0]
-            st.write(f"PAYEMS monthly change signal for {periods[-1]}: {change:+,} thousand jobs.")
+            label = "Project 2 PAYEMS monitoring signal" if before else "PAYEMS same-day comparison"
+            st.write(f"{label} for {periods[-1]}: {change:+,} thousand jobs.")
         else:
             st.info("PAYEMS monthly change signal unavailable: two consecutive months are required.")
+        if not before:
+            st.caption("Same-day values are shown for comparison only. Project 2 uses the previous-day vintage.")
         st.line_chart(panel.set_index('month measured')['value'], y_label='Thousands of persons')
         st.dataframe(panel, hide_index=True, width='stretch')
         st.download_button('Download knowable PAYEMS panel', panel.to_csv(index=False), f'payems_selected_{decision}.csv', 'text/csv')
@@ -117,19 +123,11 @@ with payroll_tab:
     st.caption('Coverage: August 2024–September 2026; 25 captured vintages. No verified intraday release timestamps. Dates reflect captured ALFRED availability.')
 
 with eligibility_tab:
-    st.subheader('Project 2 · provisional decision')
-    st.warning('HOLD for final Project 2 admission: the assignment rules and required decision dates have not been provided.')
-    st.markdown('''PAYEMS is a candidate economic input. Its saved vintages support a date-based historical analysis within the captured coverage. It is an employment series, so it does not satisfy a requirement for an interest-rate series.
+    st.subheader('Project 2 · PAYEMS admitted for monitoring')
+    st.markdown('''Use the previous calendar day's ALFRED information set. Subtract the prior month's
+eligible payroll level from the latest month's eligible level. Review each new eligible reading or
+revision at the committee; the signal does not set portfolio weights.
 
-The 10/27 checks support extraction and historical cutoff logic. The classroom AAA/BBB/CCC known-answer exercise tests the filtering method separately; it does not certify PAYEMS against a Project 2 answer key.
-
-Before final admission, match Project 2’s required series, sample length, decision timing, transformations, and verification requirements. Any predictor must be formed entirely from the information set available at each decision. Predictive usefulness remains untested.''')
-    st.dataframe(pd.DataFrame([
-        ['Source and revision history', 'Supported', 'Archived ALFRED snapshots and event table'],
-        ['Historical cutoff checks', 'Supported', 'Seven boundary cases and three source-row comparisons'],
-        ['Interest-rate series requirement', 'Fails if required', 'PAYEMS measures employment'],
-        ['Intraday decisions', 'Unverified', 'Date-only vintages; no release timestamp verification'],
-        ['Required sample and series', 'Pending', 'Need Project 2 instructions'],
-        ['Predictive value', 'Untested', 'Economic rationale alone does not establish a useful signal'],
-    ], columns=['Review', 'Status', 'Evidence / limitation']), hide_index=True, width='stretch')
+The saved observations span August 2024 through September 2026. This sample is too short to establish
+predictive value. The same-day option is a historical comparison.''')
 st.caption('Independent course app inspired by FRED; not affiliated with the Federal Reserve. AI assistance: Codex helped build the app and checks.')
