@@ -45,7 +45,7 @@ Base case (all 59 months, 8% objective, at least 20% in LQD + TLT): QQQ 20% / XL
 
 ## 4. Locked Changed-Input Record (requirement 6)
 
-**Record.** [24-month prediction](locked-record-24-month.md).
+**Record.** [24-month prediction](https://github.com/kholliger13/project2-portfolio-app/blob/main/docs/locked-record-24-month.md).
 
 **Provenance.** I wrote this prediction myself, without AI. Claude suggested the input to test and the template; the prediction values and reasoning are mine. Verified [`ee774a4`](https://github.com/kholliger13/project2-portfolio-app/commit/ee774a48385672d4ef86fcbcda76412fac70f0fe) on GitHub before the test. The commit is dated Nov 19, 2026, 4:12:42 PM ET. The run began at 4:14:18 p.m. ET.
 
@@ -70,7 +70,7 @@ The 23/36 replay and the 50 bp cost check are supporting evidence. Section 4 con
 
 **Provenance.** Claude drafted the 23/36 prediction at my request before the replay, and I adopted it. The prediction was committed locally at [`f6a0689`](https://github.com/kholliger13/project2-portfolio-app/commit/f6a0689) (Nov 17, 17:17:53 ET), before the replay commit [`159bf56`](https://github.com/kholliger13/project2-portfolio-app/commit/159bf56) (17:18:59 ET). The repository was first pushed to GitHub later that evening.
 
-**Design.** Weights were fitted on the first 23 monthly returns (Nov 2021–Sep 2023) and held over the last 36 (Oct 2023–Sep 2026). Both portfolios were rebalanced monthly to fixed targets, with 10 bps on one-way turnover, including the first purchase. [Full replay rules](../LOCKED_CHANGED_INPUT.md)
+**Design.** Weights were fitted on the first 23 monthly returns (Nov 2021–Sep 2023) and held over the last 36 (Oct 2023–Sep 2026). Both portfolios were rebalanced monthly to fixed targets, with 10 bps on one-way turnover, including the first purchase. [Full replay rules](https://github.com/kholliger13/project2-portfolio-app/blob/main/LOCKED_CHANGED_INPUT.md)
 
 **Vetoes.** Hold the pilot if the constrained mix earns under 8% net or if its volatility is at least equal weight’s.
 
@@ -81,7 +81,7 @@ The 23/36 replay and the 50 bp cost check are supporting evidence. Section 4 con
 
 Both vetoes cleared. The prediction expected the volatility veto to trigger. The fitted mix held 50% LQD and 40% XLE and had lower realized volatility than equal weight over the following 36 months.
 
-**Cost check.** Claude drafted the separate 50 bp prediction at my request. It was public on GitHub at [`ba706d9`](https://github.com/kholliger13/project2-portfolio-app/commit/ba706d9) before its rerun. Net returns fell 0.21 percentage points for the constrained mix and 0.24 for equal weight. Volatility rose about 0.07 points for each. Both vetoes cleared, as predicted. [Partner-swap record](partner-swap.md)
+**Cost check.** Claude drafted the separate 50 bp prediction at my request. It was public on GitHub at [`ba706d9`](https://github.com/kholliger13/project2-portfolio-app/commit/ba706d9) before its rerun. Net returns fell 0.21 percentage points for the constrained mix and 0.24 for equal weight. Volatility rose about 0.07 points for each. Both vetoes cleared, as predicted. [Partner-swap record](https://github.com/kholliger13/project2-portfolio-app/blob/main/docs/partner-swap.md)
 
 ## 6. Cold runs
 
@@ -99,7 +99,7 @@ Both vetoes cleared. The prediction expected the volatility veto to trigger. The
 
 **What I found.** The claim held only on the 59-month estimates. On the 23-month fit, equal weight estimates 1.88%, and the 25/75 pilot estimates 3.49%. Both clear the bond floor and fail the 8% screen if it applies to the funded sleeve. A blend needs about 95.24% in the constrained mix to pass.
 
-**What changed.** The historical check exposed the funding risk of applying the 23-month estimates to the whole sleeve. Following the professor’s guidance, I apply the screen to decision-date estimates. The funded 25/75 blend clears 8% in all three windows, supporting the pilot. [Decision memo](decision-memo.md#portfolio-pilot-decision)
+**What changed.** The historical check exposed the funding risk of applying the 23-month estimates to the whole sleeve. Following the professor’s guidance, I apply the screen to decision-date estimates. The funded 25/75 blend clears 8% in all three windows, supporting the pilot. [Decision memo](https://github.com/kholliger13/project2-portfolio-app/blob/main/docs/decision-memo.md#portfolio-pilot-decision)
 
 ## 8. Limits
 
