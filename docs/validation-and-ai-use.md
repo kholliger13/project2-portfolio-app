@@ -1,6 +1,6 @@
 # Validation and AI use
 
-**AI use.** I used OpenAI Codex to implement, test and document the app, the replay and this repository. I used Claude (Anthropic) to review my plan, draft the replay prediction and the 50 bp cost prediction at my request, and run one independent cold run of the README. **The analysis and the decision are mine.** This is education, not investment advice.
+**AI use.** I used OpenAI Codex to implement, test and document the app, the replay and this repository. I used Claude (Anthropic) to review my plan, draft the 23/36 replay prediction and the 50 bp cost prediction at my request, and run one independent cold run of the README. **I wrote the Locked Changed-Input Record prediction (24-month window) myself, without AI.** Claude suggested the input to test and the template. The prediction values and reasoning are mine. The analysis and the decision are mine. This is education, not investment advice.
 
 [Project 2 repository](https://github.com/kholliger13/project2-portfolio-app)
 
@@ -16,7 +16,7 @@ Run the automated checks and replay with `sh review.sh && python replay.py` from
 | Point-in-time gate | [Gate verification](https://github.com/kholliger13/project2-portfolio-app/blob/main/verify_asof.py) against the supplied known answer | All 12 rows and all six signal values match |
 | PAYEMS vintages | [PAYEMS verification](https://github.com/kholliger13/project2-portfolio-app/blob/main/payems_verify.py) | Three ALFRED row checks, seven date and boundary cases, shuffled input and duplicate rejection pass |
 | Rates and live apps | `verify_rates_app.py`, `verify_asof_app.py` | Cutoffs, two-month PAYEMS trigger, missing values, wrong-vintage and HTML rejection, and caching pass |
-| Replay | [Replay script](https://github.com/kholliger13/project2-portfolio-app/blob/main/replay.py) | Both locked vetoes cleared (Section 4) |
+| Replay | [Replay script](https://github.com/kholliger13/project2-portfolio-app/blob/main/replay.py) | Both locked vetoes cleared (Section 5) |
 
 ## 2. Independent challenge
 
@@ -30,7 +30,7 @@ Base case (all 59 months, 8% objective, at least 20% in LQD + TLT): QQQ 20% / XL
 |---|---|---|---|
 | Estimates | Cut each fund’s return estimate by one percentage point, one fund at a time | Still feasible every time. Cutting LQD changes the mix to QQQ 15% / XLE 30% / LQD 55%. Cutting XLE gives the lowest estimated return, 8.06%. | The base mix has 0.31 percentage points of cushion. Combined estimate errors could put that mix below the hurdle. |
 | Window | Last 36 months instead of 59 | XLE 10% / LQD 80% / FBMPX 10%, 8.30% at 7.40% | The window change moves LQD by 25 percentage points. |
-| Window (replay) | Fit on first 23 months, hold for last 36 | QQQ 10% / XLE 40% / LQD 50%, realized 11.34% at 9.45% versus equal weight at 15.69% and 9.96% | Both vetoes cleared (Section 4). |
+| Window (replay) | Fit on first 23 months, hold for last 36 | QQQ 10% / XLE 40% / LQD 50%, realized 11.34% at 9.45% versus equal weight at 15.69% and 9.96% | Both vetoes cleared (Section 5). |
 | Costs | 0, 10, 25 and 50 bps on turnover | Constrained net return 11.39% to 11.12%, volatility 9.44% to 9.52% | Both vetoes cleared at all four tested costs. |
 | Constraints | Raise objective to 9% or 30%, or raise the bond floor to 40% or 60% | 9% remains feasible (9.09%). At 30% no mix qualifies and the process stops. At a 40% floor the mix is unchanged. At 60% the mix is QQQ 5% / XLE 35% / LQD 60%, estimated at 8.10%. | The 60% floor changes the mix by requiring more LQD than the base allocation's 55%. |
 
@@ -43,39 +43,54 @@ Base case (all 59 months, 8% objective, at least 20% in LQD + TLT): QQQ 20% / XL
 - In a live pilot, any fund’s proposed weight moves more than 15 percentage points from the prior month’s proposal.
 - Refer the pilot to the committee if the point-in-time PAYEMS change is negative for two consecutive months, each measured in the vintage available the day before that month’s decision.
 
-## 4. Locked Changed-Input Record
+## 4. Locked Changed-Input Record (requirement 6)
 
-**Changed input.** The estimation window. Weights were fitted on the first 23 monthly returns (Nov 2021–Sep 2023) instead of all 59, then held over the last 36 (Oct 2023–Sep 2026). The [locked record](https://github.com/kholliger13/project2-portfolio-app/blob/main/LOCKED_CHANGED_INPUT.md) specifies monthly rebalancing to fixed targets, 10 bps on one-way turnover including the first purchase, geometric annualized net return, and sample standard deviation × √12.
+**Record.** [24-month prediction](locked-record-24-month.md).
+
+**Provenance.** I wrote this prediction myself, without AI assistance. Claude suggested the input to test and the template. The prediction values and reasoning are mine. Pre-run GitHub commit and Eastern timestamp are pending verification. The 24-month run is pending.
+
+**Input changed.** Estimation window, from all 59 monthly returns to the last 24 (Oct 2024–Sep 2026). Held fixed: 8% objective, at least 20% LQD + TLT, 5-point grid, long-only, minimum volatility.
+
+| Field | My prediction | Actual |
+|---|---|---|
+| Qualifying mix found? | Yes | Pending |
+| Weights | 45% LQD, 0% TLT, 55% equities | Pending |
+| Estimated return | 8.4% | Pending |
+| Volatility | 12.0% | Pending |
+| Direction vs. 59-month answer (8.31% / 11.43%, LQD 55%) | Slightly higher return and volatility, LQD down 10 points | Pending |
+| Effect on the decision | Keep the 8% objective and shift 10 points from LQD to equities | Pending |
+
+**My reasoning before the run.** The shorter window will estimate a lower return for LQD relative to equities, so the minimum-volatility mix that clears 8% will need more equity exposure. That shift should raise volatility slightly. LQD should fill the bond allocation because TLT's longer duration makes it more sensitive to rate moves.
+
+**What happened and why.** Pending the run.
+
+## 5. Supporting evidence: 23/36 historical replay
+
+The 23/36 replay and the 50 bp cost check are supporting evidence. Section 4 contains the prediction for requirement 6.
+
+**Provenance.** Claude drafted the 23/36 prediction at my request before the replay, and I adopted it. The prediction was committed locally at [`f6a0689`](https://github.com/kholliger13/project2-portfolio-app/commit/f6a0689) (Nov 17, 17:17:53 ET), before the replay commit [`159bf56`](https://github.com/kholliger13/project2-portfolio-app/commit/159bf56) (17:18:59 ET). The repository was first pushed to GitHub later that evening.
+
+**Design.** Weights were fitted on the first 23 monthly returns (Nov 2021–Sep 2023) and held over the last 36 (Oct 2023–Sep 2026). Both portfolios were rebalanced monthly to fixed targets, with 10 bps on one-way turnover, including the first purchase. [Full replay rules](../LOCKED_CHANGED_INPUT.md)
 
 **Vetoes.** Hold the pilot if the constrained mix earns under 8% net or if its volatility is at least equal weight’s.
-
-**Publication history.** The replay prediction was committed locally at [`f6a0689`](https://github.com/kholliger13/project2-portfolio-app/commit/f6a0689) (17:17:53), before the replay commit [`159bf56`](https://github.com/kholliger13/project2-portfolio-app/commit/159bf56) (17:18:59). The repository was first pushed to GitHub later that evening, so GitHub shows the commit order and timestamps, not a pre-run publication. The 50 bp prediction ([`ba706d9`](https://github.com/kholliger13/project2-portfolio-app/commit/ba706d9)) was public on GitHub before its rerun. Both predictions had the AI assistance disclosed above.
 
 | Portfolio | Predicted net return | Actual net return | Predicted volatility | Actual volatility |
 |---|---:|---:|---:|---:|
 | Constrained | 12% (9–15%) | **11.34%** | 15% (12–18%) | **9.45%** |
 | Equal weight | 14% (13–15%) | **15.69%** | 10% (9–11%) | **9.96%** |
 
-| Item | Predicted | Actual |
-|---|---|---|
-| Qualifying 23-month mix | Yes | Yes (4,964 of 53,130) |
-| Weights | 20–25% LQD and 50–65% XLE + EWZ | 50% LQD, 40% XLE and 0% EWZ |
-| Veto 1 (return < 8%) | Does not trigger | Did not trigger |
-| Veto 2 (volatility ≥ equal weight) | Triggers | **Did not trigger** |
-| Vote | Hold | Replay passes. Funding is held pending mandate scope. |
+Both vetoes cleared. The prediction expected the volatility veto to trigger. The fitted mix held 50% LQD and 40% XLE and had lower realized volatility than equal weight over the following 36 months.
 
-**Why the prediction missed.** It expected the 2022 fit to lean on volatile energy and Brazil funds. The optimizer hit the 8% target with a large LQD position plus XLE. Over the next 36 months, that allocation had lower realized volatility than equal weight. The return call was right and the risk call was wrong.
+**Cost check.** Claude drafted the separate 50 bp prediction at my request. It was public on GitHub at [`ba706d9`](https://github.com/kholliger13/project2-portfolio-app/commit/ba706d9) before its rerun. Net returns fell 0.21 percentage points for the constrained mix and 0.24 for equal weight. Volatility rose about 0.07 points for each. Both vetoes cleared, as predicted. [Partner-swap record](partner-swap.md)
 
-**Second record: cost, published before its run.** The 50 bp prediction was on GitHub at [`ba706d9`](https://github.com/kholliger13/project2-portfolio-app/commit/ba706d9) before the rerun. It predicted net returns falling by less than 0.5 percentage points, little change in volatility, and the same decision. Actual returns fell by 0.21 points for the constrained mix and 0.24 for equal weight, with volatility up about 0.07 points for each. The funding hold stayed in place. [Partner-swap record](https://github.com/kholliger13/project2-portfolio-app/blob/main/docs/partner-swap.md)
-
-## 5. Cold runs
+## 6. Cold runs
 
 | Run | Result |
 |---|---|
 | First attempt, shared course repository | Failed because no Project 2 README was published. Fixed by publishing this repository with its full local history. |
 | Zachary’s rerun on `ba706d9`, fresh clone, README only | No failure. About 32 seconds from clone to the final replay line, including setup. |
 
-## 6. One AI output I checked
+## 7. One AI output I checked
 
 **The claim.** While helping me tighten the recommendation, Claude wrote that equal weight was a mandate-compliant fallback (10.00% estimated return and 33.3% in LQD + TLT).
 
@@ -85,7 +100,7 @@ Base case (all 59 months, 8% objective, at least 20% in LQD + TLT): QQQ 20% / XL
 
 **What changed.** The recommendation became “hold funding until the scope of the 8% screen is confirmed,” and the memo and Video 3 brief show both readings.
 
-## 7. Limits
+## 8. Limits
 
 - The return figures come from historical estimates and a historical replay. The later 36 months had already been seen.
 - Volatility measures variability. Maximum loss requires separate evaluation.
