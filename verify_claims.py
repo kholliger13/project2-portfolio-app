@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+from attribution import CASES, analyze
 from portfolio import equal_weights, portfolio_volatility
 from portfolio_core import (
     OBJECTIVE, RESERVE_ELIGIBLE, RESERVE_MIN, build_covariance, choose_window,
@@ -21,6 +22,7 @@ DOCUMENTS = {
     "24-month record": "docs/locked-record-24-month.md",
     "replay record": "LOCKED_CHANGED_INPUT.md",
     "partner swap": "docs/partner-swap.md",
+    "driver attribution": "docs/driver-attribution.md",
 }
 
 
@@ -104,12 +106,36 @@ def model_values():
     values["24 LQD increase"] = values["24 LQD weight"] - values["59 LQD weight"]
     values["36 LQD increase"] = values["36 LQD weight"] - values["59 LQD weight"]
     values["24 equity weight"] = 1 - values["24 reserves"]
+    fits, effects = analyze(returns)
+    values["attribution baseline months"] = len(returns)
+    values["attribution shorter months"] = len(returns.tail(24))
+    for label, swaps in CASES:
+        fit = fits[swaps]
+        for ticker, weight in fit["weights"].items():
+            values[f"{label} {ticker} weight"] = weight
+        for field in ("return", "volatility"):
+            values[f"{label} {field}"] = fit[field]
+    for name, row in effects.items():
+        for metric, effect in row.items():
+            values[f"{name} {metric} change"] = float(effect * 100)
     return values
 
 
 # Each entry identifies a passage and pairs its model figures with their printed
 # values in reading order. Column order distinguishes figures on the same row.
 CITATIONS = {
+    "driver attribution": [
+        ("What drove the change", "attribution baseline months=59;attribution shorter months=24"),
+        ("| 59-month baseline |", "59-month baseline QQQ weight=20%;59-month baseline XLE weight=25%;59-month baseline LQD weight=55%;59-month baseline return=8.31%;59-month baseline volatility=11.43%;59-month baseline LQD weight=55%"),
+        ("| Return estimates only |", "Return estimates only XLE weight=20%;Return estimates only LQD weight=65%;Return estimates only FBMPX weight=15%;Return estimates only return=8.08%;Return estimates only volatility=10.82%;Return estimates only LQD weight=65%"),
+        ("| Fund volatilities only |", "Fund volatilities only QQQ weight=20%;Fund volatilities only XLE weight=25%;Fund volatilities only LQD weight=55%;Fund volatilities only return=8.31%;Fund volatilities only volatility=8.83%;Fund volatilities only LQD weight=55%"),
+        ("| Correlations only |", "Correlations only QQQ weight=25%;Correlations only XLE weight=15%;Correlations only EWZ weight=10%;Correlations only LQD weight=50%;Correlations only return=8.53%;Correlations only volatility=9.46%;Correlations only LQD weight=50%"),
+        ("| 24-month answer |", "24-month answer QQQ weight=20%;24-month answer XLE weight=15%;24-month answer EWZ weight=5%;24-month answer LQD weight=60%;24-month answer return=8.79%;24-month answer volatility=6.70%;24-month answer LQD weight=60%"),
+        ("| Return estimates |", "Return estimates LQD weight change=+10.00;Return estimates volatility change=-0.56;Return estimates return change=+0.00"),
+        ("| Fund volatilities |", "Fund volatilities LQD weight change=+0.00;Fund volatilities volatility change=-2.55;Fund volatilities return change=+0.05"),
+        ("| Correlations |", "Correlations LQD weight change=-5.00;Correlations volatility change=-1.62;Correlations return change=+0.44"),
+        ("| Total |", "Total LQD weight change=+5.00;Total volatility change=-4.73;Total return change=+0.49"),
+    ],
     "readme": [
         ("LQD rises from", "59 LQD weight=55%;36 LQD weight=80%"),
     ],
@@ -188,12 +214,14 @@ CITATIONS = {
 
 
 def formatted_value(key, value, cited):
-    number = re.match(r"-?\d[\d,]*(?:\.(\d+))?", cited)
+    number = re.match(r"[+-]?\d[\d,]*(?:\.(\d+))?", cited)
     if number is None:
         if isinstance(value, bool):
             return cited if value else "False"
         return cited if value == 0 else str(value)
     decimals = len(number[1] or "")
+    if key.endswith(" change"):
+        return f"{value:+.{decimals}f}"
     if cited.endswith("%"):
         return f"{value:.{decimals}%}"
     if key.endswith((" increase", " decrease", " cushion")):
@@ -223,8 +251,8 @@ def audit(values, overrides=None, only=None):
             cursor = 0
             for key, cited in claims:
                 pattern = re.escape(cited)
-                if re.match(r"-?\d", cited):
-                    pattern = r"(?<![\d.,-])" + pattern + r"(?![\d]|[.,]\d)"
+                if re.match(r"[+-]?\d", cited):
+                    pattern = r"(?<![\d.,+-])" + pattern + r"(?![\d]|[.,]\d)"
                 match = re.search(pattern, passage[cursor:])
                 if match:
                     cursor += match.end()
