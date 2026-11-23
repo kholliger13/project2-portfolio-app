@@ -1,6 +1,8 @@
 """Check portfolio figures against the bundled data and their Markdown citations."""
 
 import argparse
+import csv
+from datetime import date, datetime
 import re
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -11,7 +13,7 @@ from portfolio_core import (
     OBJECTIVE, RESERVE_ELIGIBLE, RESERVE_MIN, build_covariance, choose_window,
     estimate_inputs, load_prices, monthly_returns, optimize,
 )
-from replay import evaluate, minimum_constrained_share
+from replay import TRADE_COST, evaluate, minimum_constrained_share
 
 ROOT = Path(__file__).resolve().parent
 DOCUMENTS = {
@@ -36,7 +38,31 @@ def model_values():
         raise ValueError("Expected 59 monthly returns for the locked comparisons.")
     equal = returns.iloc[0].copy()
     equal[:] = equal_weights(returns.columns)
-    values = {}
+    price_record = ROOT / "evidence/Lab14_portfolio_app_2026_10_22.md"
+    timestamp = re.search(r"(?m)^Download timestamp: (\S+)", price_record.read_text())
+    if timestamp is None:
+        raise ValueError("Missing fund price download timestamp.")
+    download = datetime.fromisoformat(timestamp[1])
+    with (ROOT / "payems_vintages.csv").open(newline="", encoding="utf-8") as source:
+        vintages = list(csv.DictReader(source))
+    measured_months = [date.fromisoformat(row["month measured"]) for row in vintages]
+    latest_vintage = date.fromisoformat(max(row["published on"] for row in vintages))
+    pilot_share, halfway_share = 0.25, 0.50
+    values = {
+        "price download date": download.strftime("%B %d, %Y"),
+        "first return month": returns.index[0].strftime("%B %Y"),
+        "last price month": returns.index[-1].strftime("%B %Y"),
+        "full return window": len(returns),
+        "first PAYEMS month": min(measured_months).strftime("%B %Y"),
+        "last PAYEMS month": max(measured_months).strftime("%B %Y"),
+        "latest PAYEMS vintage": f"{latest_vintage:%B} {latest_vintage.day}, {latest_vintage.year}",
+        "return objective": OBJECTIVE,
+        "bond floor": RESERVE_MIN,
+        "locked replay cost": round(TRADE_COST * 10_000),
+        "pilot constrained share": pilot_share,
+        "pilot equal weight share": 1 - pilot_share,
+        "halfway constrained share": halfway_share,
+    }
     windows = {59: returns, 36: choose_window(returns, 36),
                24: returns.tail(24), 23: returns.head(23)}
     for months, window in windows.items():
@@ -52,8 +78,8 @@ def model_values():
             values[f"{prefix} {ticker} estimate"] = mean[ticker]
             values[f"{prefix} {ticker} volatility"] = vol[ticker]
         for name, weights in (
-            ("equal", equal), ("blend", 0.25 * target + 0.75 * equal),
-            ("halfway", 0.5 * target + 0.5 * equal),
+            ("equal", equal), ("blend", pilot_share * target + (1 - pilot_share) * equal),
+            ("halfway", halfway_share * target + (1 - halfway_share) * equal),
         ):
             values[f"{prefix} {name} return"] = weights @ mean
             values[f"{prefix} {name} volatility"] = portfolio_volatility(
@@ -140,12 +166,14 @@ CITATIONS = {
         ("LQD rises from", "59 LQD weight=55%;36 LQD weight=80%"),
     ],
     "memo": [
+        ("**Committee ask:**", "pilot constrained share=25%;halfway constrained share=50%"),
         ("sleeve holds at least", "59 blend bonds=38.8%"),
         ("the 25/75 sleeve estimates", "59 blend return=9.58%;36 blend return=13.47%;24 blend return=12.70%;23 return=8.31%;23 blend return=3.49%"),
         ("**Changed input and result.**", "10 bps constrained return=11.34%;10 bps constrained volatility=9.45%;10 bps equal return=15.69%;10 bps equal volatility=9.96%;23 blend bonds=37.50%;23 blend return=3.49%"),
         ("LQD shift from", "59 LQD weight=55%;36 LQD weight=80%"),
     ],
     "results": [
+        ("> **Visible output**", "last price month=September 2026;return objective=8%;bond floor=20%;full return window=59;locked replay cost=10;pilot constrained share=25%;pilot equal weight share=75%"),
         ("sleeve holds at least", "59 blend bonds=38.8%"),
         ("| All 59 monthly returns |", "59 blend return=9.58%;59 blend bonds=38.75%;59 blend volatility=12.90%;59 equal volatility=13.57%"),
         ("| Last 36 monthly returns |", "36 blend return=13.47%;36 blend bonds=45.00%;36 blend volatility=9.13%;36 equal volatility=9.94%"),
@@ -164,6 +192,9 @@ CITATIONS = {
         ("The separate [AI-off", "24 return=8.79%;24 volatility=6.70%;24 LQD weight=60%;24 blend return=12.70%"),
     ],
     "validation": [
+        ("**Fund prices.**", "price download date=October 22, 2026;full return window=59;first return month=November 2021;last price month=September 2026"),
+        ("**PAYEMS.** Captured ALFRED vintages", "first PAYEMS month=August 2024;last PAYEMS month=September 2026;latest PAYEMS vintage=October 2, 2026"),
+        ("**Decision as-of date for fund prices.**", "last price month=September 2026"),
         ("| Independent recalculation |", "59 mixes_tested=53,130;59 mixes_qualifying=22,829;36 mixes_qualifying=36,889"),
         ("The main weakness is window sensitivity", "59 LQD weight=55%;36 LQD weight=80%"),
         ("Base case (all 59 months", "59 QQQ weight=20%;59 XLE weight=25%;59 LQD weight=55%;59 return=8.31%;59 volatility=11.43%"),
@@ -214,6 +245,8 @@ CITATIONS = {
 
 
 def formatted_value(key, value, cited):
+    if isinstance(value, str):
+        return value
     number = re.match(r"[+-]?\d[\d,]*(?:\.(\d+))?", cited)
     if number is None:
         if isinstance(value, bool):

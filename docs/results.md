@@ -1,3 +1,13 @@
+> **Visible output**
+>
+> **As-of date.** September 2026, the last price month used.
+>
+> **Material inputs.** QQQ, XLE, EWZ, LQD, TLT and FBMPX. The objective is at least 8% estimated annual return with at least 20% in LQD + TLT. The verdicts use all 59 monthly returns. The locked replay charges 10 bps on one-way turnover.
+>
+> **Portfolio verdicts.** Equal weight passes both screens. Inverse volatility fails the return objective and clears the bond floor. The constrained portfolio passes both screens.
+>
+> **Decision.** Pilot 25% constrained and 75% equal weight.
+
 # Project 2 visible output
 
 ## Funded pilot

@@ -4,6 +4,14 @@
 
 [Project 2 repository](https://github.com/kholliger13/project2-portfolio-app)
 
+## Sources and as-of boundary
+
+- **Fund prices.** Yahoo Finance monthly adjusted closes in `prices.csv`, downloaded October 22, 2026. The file yields 59 monthly returns from November 2021 through September 2026. [Price source and download record](../evidence/Lab14_portfolio_app_2026_10_22.md)
+
+- **PAYEMS.** Captured ALFRED vintages cover August 2024 through September 2026. The latest captured vintage is October 2, 2026. Under the previous-day eligibility rule, only vintages dated before the decision date are eligible. [PAYEMS vintage record](../evidence/Lab15_PAYEMS_point_in_time_2026_10_27.md) · [Previous-day rule](decision-memo.md)
+
+- **Decision as-of date for fund prices.** September 2026, the last price month used.
+
 ## 1. What was checked
 
 Run the automated checks and replay with `sh review.sh && python replay.py` from a clean checkout after the [README setup](https://github.com/kholliger13/project2-portfolio-app#run-from-a-clean-checkout). Any failure stops the run. The independent recalculation and additional stress cases are documented separately below.
@@ -17,7 +25,7 @@ Run the automated checks and replay with `sh review.sh && python replay.py` from
 | PAYEMS vintages | [PAYEMS verification](https://github.com/kholliger13/project2-portfolio-app/blob/main/payems_verify.py) | Three ALFRED row checks, seven date and boundary cases, shuffled input and duplicate rejection pass |
 | Rates and live apps | `verify_rates_app.py`, `verify_asof_app.py` | Cutoffs, two-month PAYEMS trigger, missing values, wrong-vintage and HTML rejection, and caching pass |
 | Replay | [Replay script](https://github.com/kholliger13/project2-portfolio-app/blob/main/replay.py) | Both locked vetoes cleared (Section 5) |
-| Numbers audit | [verify_claims.py](https://github.com/kholliger13/project2-portfolio-app/blob/main/verify_claims.py) recomputes every headline figure cited in the README, memo, results and validation documents and fails the review if any differs. A self-test confirms it catches a changed number. | 240 claims pass. The self-test catches the altered figure. |
+| Numbers audit | [verify_claims.py](https://github.com/kholliger13/project2-portfolio-app/blob/main/verify_claims.py) recomputes every headline figure cited in the README, memo, results and validation documents and fails the review if any differs. A self-test confirms it catches a changed number. | 257 claims pass. The self-test catches the altered figure. |
 
 ## 2. Independent challenge
 
@@ -48,9 +56,11 @@ Base case (all 59 months, 8% objective, at least 20% in LQD + TLT): QQQ 20% / XL
 
 **Record.** [24-month prediction](https://github.com/kholliger13/project2-portfolio-app/blob/main/docs/locked-record-24-month.md).
 
-**Provenance.** I wrote this prediction myself, without AI. Claude suggested the input to test and the template; the prediction values and reasoning are mine. Verified [`ee774a4`](https://github.com/kholliger13/project2-portfolio-app/commit/ee774a48385672d4ef86fcbcda76412fac70f0fe) on GitHub before the test. The commit is dated Nov 19, 2026, 4:12:42 PM ET. The run began at 4:14:18 p.m. ET.
+**Provenance.** I wrote this prediction myself, without AI. Claude suggested the input to test and the template; the prediction values and reasoning are mine.
 
-**Input changed.** Estimation window, from all 59 monthly returns to the last 24 (Oct 2024–Sep 2026). Held fixed: 8% objective, at least 20% LQD + TLT, 5-point grid, long-only, minimum volatility.
+**Immutable pre-run commit.** Verified [`ee774a4`](https://github.com/kholliger13/project2-portfolio-app/commit/ee774a48385672d4ef86fcbcda76412fac70f0fe) on GitHub before the test. The commit is dated Nov 19, 2026, 4:12:42 PM ET. The run began at 4:14:18 p.m. ET.
+
+**Input changed.** Estimation window, **old value** all 59 monthly returns, **new value** the last 24 monthly returns (Oct 2024–Sep 2026). Held fixed: 8% objective, at least 20% LQD + TLT, 5-point grid, long-only, minimum volatility.
 
 | Field | My prediction | Actual |
 |---|---|---|
@@ -63,7 +73,7 @@ Base case (all 59 months, 8% objective, at least 20% in LQD + TLT): QQQ 20% / XL
 
 **My reasoning before the run.** The shorter window will estimate a lower return for LQD relative to equities, so the minimum-volatility mix that clears 8% will need more equity exposure. That shift should raise volatility slightly. LQD should fill the bond allocation because TLT's longer duration makes it more sensitive to rate moves.
 
-**What happened and why.** The return direction and TLT at 0% were right; the weights and volatility went the opposite way. My premise held: over the last 24 months the equity estimates rose (QQQ 16.0% to 23.1%, FBMPX 14.7% to 25.3%) while LQD's estimate barely moved (-0.9% to -0.4%). But because the 8% target is fixed, higher equity returns let the optimizer reach 8% with fewer equities, so it held more LQD, not less. LQD's volatility also fell from 9.9% to 5.6% in the shorter window, which lowered total volatility instead of raising it. The decision does not change. Across three windows LQD is 55%, 80% and 60% under the same mandate, which supports the window-instability finding and the 15-point monitoring trigger. Claude helped me interpret the result; the prediction above was written without AI. [Driver attribution](https://github.com/kholliger13/project2-portfolio-app/blob/main/docs/driver-attribution.md)
+**What happened and why.** **Failure diagnosis.** The return direction and TLT at 0% were right; the weights and volatility went the opposite way. My premise held: over the last 24 months the equity estimates rose (QQQ 16.0% to 23.1%, FBMPX 14.7% to 25.3%) while LQD's estimate barely moved (-0.9% to -0.4%). But because the 8% target is fixed, higher equity returns let the optimizer reach 8% with fewer equities, so it held more LQD, not less. LQD's volatility also fell from 9.9% to 5.6% in the shorter window, which lowered total volatility instead of raising it. The decision does not change. Across three windows LQD is 55%, 80% and 60% under the same mandate, which supports the window-instability finding and the 15-point monitoring trigger. Claude helped me interpret the result; the prediction above was written without AI. [Driver attribution](https://github.com/kholliger13/project2-portfolio-app/blob/main/docs/driver-attribution.md)
 
 ## 5. Supporting evidence: 23/36 historical replay
 

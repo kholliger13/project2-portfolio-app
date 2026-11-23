@@ -14,6 +14,8 @@ after six months of live results clear the same two vetoes used in the replay. T
 sleeve holds at least 38.8% in LQD and TLT and has lower estimated volatility than equal
 weight in all three windows.
 
+**Committee ask:** Approve a 25% constrained pilot today, with monthly review and expansion toward 50% only after six months of live results clear both replay tests.
+
 Professor's guidance, Nov 19, 2026: the 8% screen may apply to either the funded sleeve
 or the constrained allocation; if the sleeve fails, test the constrained allocation. No
 estimation window is perfectly current or perfectly historical. I apply the screen to the
