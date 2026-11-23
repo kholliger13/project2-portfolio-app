@@ -36,6 +36,11 @@ def evaluate(returns, target, trade_cost=TRADE_COST):
     )
 
 
+def minimum_constrained_share(equal_estimate, constrained_estimate):
+    """Return the constrained allocation needed to reach the sleeve objective."""
+    return (OBJECTIVE - equal_estimate) / (constrained_estimate - equal_estimate)
+
+
 def main():
     prices = load_prices(Path(__file__).with_name("prices.csv"))
     returns = monthly_returns(prices)
@@ -83,7 +88,7 @@ def main():
     print(f"50/50 blend: bond weight {halfway_reserve:.4%}, "
           f"training return estimate {halfway_return:.4%}")
     if equal_estimate < OBJECTIVE:
-        required_share = (OBJECTIVE - equal_estimate) / (fit["return"] - equal_estimate)
+        required_share = minimum_constrained_share(equal_estimate, fit["return"])
         print(f"Constrained share needed for the 8% sleeve screen: {required_share:.4%}")
     print("Cost stress on the same fixed targets (separate from the locked 10 bps result):")
     for cost in (0.0, TRADE_COST, 0.0025):
