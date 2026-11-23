@@ -20,7 +20,7 @@ Run the automated checks and replay with `sh review.sh && python replay.py` from
 
 ## 2. Independent challenge
 
-Using the three parts of Federal Reserve SR 26-2, conceptual soundness, outcome analysis and ongoing monitoring, I would approve the model for classroom demonstration and **hold allocation approval**. The main weakness is window sensitivity. The same mandate puts 55% in LQD with all 59 months and 80% with the last 36. [Full model validation](https://github.com/kholliger13/project2-portfolio-app/blob/main/MODEL_VALIDATION.md)
+Using the three parts of Federal Reserve SR 26-2, conceptual soundness, outcome analysis and ongoing monitoring, the independent review supported classroom demonstration and recommended holding allocation approval pending mandate clarification. The November 19 decision memo records how that clarification led to a limited pilot with review triggers. The main weakness is window sensitivity. The same mandate puts 55% in LQD with all 59 months and 80% with the last 36. [Full model validation](https://github.com/kholliger13/project2-portfolio-app/blob/main/MODEL_VALIDATION.md)
 
 ## 3. Stress run
 
@@ -95,7 +95,7 @@ Both vetoes cleared. The prediction expected the volatility veto to trigger. The
 
 **The claim.** While helping me tighten the recommendation, Claude wrote that equal weight was a mandate-compliant fallback (10.00% estimated return and 33.3% in LQD + TLT).
 
-**How I checked it.** I recomputed equal weight on the replay’s 23-month fit, because those are the estimates the pilot would be funded on.
+**How I checked it.** I recomputed equal weight on the replay’s 23-month fit, to test the fallback under the historical estimates used in the replay.
 
 **What I found.** The claim held only on the 59-month estimates. On the 23-month fit, equal weight estimates 1.88%, and the 25/75 pilot estimates 3.49%. Both clear the bond floor and fail the 8% screen if it applies to the funded sleeve. A blend needs about 95.24% in the constrained mix to pass.
 

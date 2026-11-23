@@ -53,4 +53,4 @@ The latest captured payroll change is **+29 thousand jobs** (159,044 in Septembe
 
 Captured observations run from August 2024 through September 2026. The sample is too short to test predictive value, and the vintages establish date-level availability. An unavailable reading or a decision outside the capture yields no monitoring signal.
 
-Keep portfolio interpretation separate from the vintage test. Lab 14’s LQD shift from 55% to 80% shows sensitivity to the estimation window under fixed inputs and constraints. Both return estimates are historical. The committee should treat this as scenario evidence and defer any allocation approval requiring full mandate checks.
+Keep portfolio interpretation separate from the vintage test. Lab 14’s LQD shift from 55% to 80% shows sensitivity to the estimation window under fixed inputs and constraints. Both return estimates are historical. The window comparison is sensitivity evidence. The pilot approval uses the funded-sleeve checks above and remains subject to the monitoring and reversal rules.
