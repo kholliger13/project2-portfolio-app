@@ -25,7 +25,7 @@ Run the automated checks and replay with `sh review.sh && python replay.py` from
 | PAYEMS vintages | [PAYEMS verification](https://github.com/kholliger13/project2-portfolio-app/blob/main/payems_verify.py) | Three ALFRED row checks, seven date and boundary cases, shuffled input and duplicate rejection pass |
 | Rates and live apps | `verify_rates_app.py`, `verify_asof_app.py` | Cutoffs, two-month PAYEMS trigger, missing values, wrong-vintage and HTML rejection, and caching pass |
 | Replay | [Replay script](https://github.com/kholliger13/project2-portfolio-app/blob/main/replay.py) | Both locked vetoes cleared (Section 5) |
-| Numbers audit | [verify_claims.py](https://github.com/kholliger13/project2-portfolio-app/blob/main/verify_claims.py) recomputes every headline figure cited in the README, memo, results and validation documents and fails the review if any differs. A self-test confirms it catches a changed number. | 257 claims pass. The self-test catches the altered figure. |
+| Numbers audit | [verify_claims.py](https://github.com/kholliger13/project2-portfolio-app/blob/main/verify_claims.py) recomputes every headline figure cited in the README, memo, results and validation documents and fails the review if any differs. A self-test confirms it catches a changed number. | 261 claims pass. The self-test catches the altered figure. |
 
 ## 2. Independent challenge
 

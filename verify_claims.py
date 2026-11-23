@@ -270,6 +270,7 @@ def formatted_value(key, value, cited):
 def audit(values, overrides=None, only=None):
     failures = []
     total = 0
+    validation_text = ""
     for document, groups in CITATIONS.items():
         if only is not None and document != only:
             continue
@@ -278,6 +279,8 @@ def audit(values, overrides=None, only=None):
             raw = path.read_text(encoding="utf-8")
         except FileNotFoundError:
             raw = ""
+        if document == "validation":
+            validation_text = raw
         # A passage ends at the next Markdown table row or paragraph.
         passages = re.split(r"\n\s*\n|\n(?=\|)", raw)
         for anchor, entries in groups:
@@ -299,6 +302,21 @@ def audit(values, overrides=None, only=None):
                 print(f"{'PASS' if passed else 'FAIL'} | {key} | cited {cited} | "
                       f"recomputed {recomputed} | {path if overrides else DOCUMENTS[document]}")
                 total += 1
+    if only is None:
+        total += 1
+        document = "validation"
+        anchor = "| Numbers audit |"
+        key = "Cited audit check count"
+        rows = [line for line in validation_text.splitlines() if line.startswith(anchor)]
+        row = rows[0] if len(rows) == 1 else ""
+        counts = re.findall(r"\b([0-9]+(?:,[0-9]{3})*)\s+claims\s+pass\b", row)
+        cited = counts[0] if len(counts) == 1 else "missing or ambiguous"
+        passed = len(counts) == 1 and int(cited.replace(",", "")) == total
+        if not passed:
+            failures.append((document, anchor, key))
+        path = (overrides or {}).get(document, DOCUMENTS[document])
+        print(f"{'PASS' if passed else 'FAIL'} | {key} | cited {cited} | "
+              f"recomputed {total} | {path}")
     return total, failures
 
 
