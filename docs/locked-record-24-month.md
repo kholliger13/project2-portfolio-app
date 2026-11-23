@@ -40,7 +40,7 @@ Written by me without AI assistance. Claude suggested the input and template. Th
 
 **Prediction comparison.** A mix qualified, TLT stayed at zero and estimated return rose by 0.49 percentage points, matching those directions. LQD rose by 5 percentage points instead of falling by 10, and estimated volatility fell by 4.73 points. In the shorter window, LQD’s estimated volatility fell from 9.87% to 5.64%, and the equity sleeves still supplied enough estimated return for a mix with 60% LQD to clear 8%.
 
-**Decision.** Keep the 8% objective and hold funding pending mandate scope. The 24-month fit supports no shift from LQD to equities. Its return and volatility are in-sample estimates, and the funded-blend check remains separate.
+**Decision.** Keep the 8% objective and hold funding pending mandate scope. The 24-month fit supports no shift from LQD to equities. Its return and volatility are in-sample estimates, and the funded-blend check remains separate. (At the time of the run. Scope was resolved Nov 19; the current recommendation is a 25% pilot — see the decision memo.)
 
 ### Reproduce
 
