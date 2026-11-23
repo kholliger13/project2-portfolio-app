@@ -144,6 +144,7 @@ def model_values():
     for name, row in effects.items():
         for metric, effect in row.items():
             values[f"{name} {metric} change"] = float(effect * 100)
+    values["correlation LQD reduction"] = -values["Correlations LQD weight change"]
     return values
 
 
@@ -208,7 +209,7 @@ CITATIONS = {
         ("| Estimated return |", "24 return=8.79%"),
         ("| Volatility |", "24 volatility=6.70%"),
         ("| Direction vs. 59-month answer", "59 return=8.31%;59 volatility=11.43%;59 LQD weight=55%;24 volatility decrease=4.73;24 LQD increase=5 points"),
-        ("**What happened and why.**", "24 TLT weight=0%;59 QQQ estimate=16.0%;24 QQQ estimate=23.1%;59 FBMPX estimate=14.7%;24 FBMPX estimate=25.3%;59 LQD estimate=-0.9%;24 LQD estimate=-0.4%;59 LQD volatility=9.9%;24 LQD volatility=5.6%;59 LQD weight=55%;36 LQD weight=80%;24 LQD weight=60%"),
+        ("**What happened and why.**", "24 TLT weight=0%;59 QQQ estimate=16.0%;24 QQQ estimate=23.1%;59 FBMPX estimate=14.7%;24 FBMPX estimate=25.3%;59 LQD estimate=-0.9%;24 LQD estimate=-0.4%;59 LQD volatility=9.9%;24 LQD volatility=5.6%;correlation LQD reduction=5 points;Total LQD weight change=+5;Return estimates LQD weight change=+10;59 LQD weight=55%;36 LQD weight=80%;24 LQD weight=60%"),
         ("| Constrained | 12%", "10 bps constrained return=11.34%;10 bps constrained volatility=9.45%"),
         ("| Equal weight | 14%", "10 bps equal return=15.69%;10 bps equal volatility=9.96%"),
         ("The fitted mix held", "23 LQD weight=50%;23 XLE weight=40%"),
@@ -253,6 +254,8 @@ def formatted_value(key, value, cited):
             return cited if value else "False"
         return cited if value == 0 else str(value)
     decimals = len(number[1] or "")
+    if key == "correlation LQD reduction":
+        return f"{value:.{decimals}f} points"
     if key.endswith(" change"):
         return f"{value:+.{decimals}f}"
     if cited.endswith("%"):
