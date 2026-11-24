@@ -10,6 +10,14 @@ Education, not investment advice.
 
 **Portfolio committee decision: pilot 25% constrained and 75% equal weight, rebalanced monthly to fixed targets.** The funded sleeve clears the 8% screen on the decision-date estimates. Consider expanding toward 50% only after six months of live results clear both replay vetoes. [Committee decision and triggers](docs/decision-memo.md#portfolio-pilot-decision) · [Historical replay](LOCKED_CHANGED_INPUT.md)
 
+## Beyond the base requirements
+
+- **Numbers audit.** [verify_claims.py](https://github.com/kholliger13/project2-portfolio-app/blob/main/verify_claims.py) recomputes every figure cited in the README, memo, results and validation documents on each review run, checks its own cited count, and includes a self-test that proves it catches a changed number.
+- **Driver attribution.** [docs/driver-attribution.md](https://github.com/kholliger13/project2-portfolio-app/blob/main/docs/driver-attribution.md) splits the 59-to-24-month change among return estimates, volatilities and correlations across all six swap orders (Shapley attribution).
+- **Independent recalculation.** [MODEL_VALIDATION.md](https://github.com/kholliger13/project2-portfolio-app/blob/main/MODEL_VALIDATION.md) recomputes all 53,130 grid mixes without the optimizer code.
+- **Two cold runs from GitHub.** Zachary's fresh clone and a separate AI-assisted run, recorded in [docs/partner-swap.md](https://github.com/kholliger13/project2-portfolio-app/blob/main/docs/partner-swap.md).
+- **AI-use dispositions.** Every material AI use is listed with its tool, model, date and whether it was accepted, modified or rejected, in [docs/validation-and-ai-use.md](https://github.com/kholliger13/project2-portfolio-app/blob/main/docs/validation-and-ai-use.md).
+
 PAYEMS is the project’s point-in-time signal, used as a monitoring trigger: if the point-in-time payroll change is negative for two consecutive months, the pilot goes back to the committee. [Data card](evidence/PAYEMS_data_card_2026_10_29.md) · [PAYEMS decision](docs/decision-memo.md#payems-data-decision)
 
 ## Run from a clean checkout
