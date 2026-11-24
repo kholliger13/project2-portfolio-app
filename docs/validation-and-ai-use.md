@@ -18,6 +18,7 @@
 | Claude Opus 5.5 | Nov 19, 2026 | Wrote "LQD stayed near −0.4%" | **Rejected.** Caught by Codex's recomputation of every cited figure while building the numbers audit; corrected to −0.9% → −0.4% before the audit was committed |
 | Claude Opus 5.5 | Nov 23, 2026 | Proposed the numbers audit and Shapley driver-attribution designs | **Accepted.** Built by Codex and verified by `review.sh` |
 | Claude Opus 5.5 and OpenAI Codex | Nov 17–23, 2026 | Cross-verification | **Accepted.** Each tool's results were reproduced independently by the other before being cited |
+| Otter.ai | Nov 23, 2026 | Transcribed the three videos | **Modified.** Tickers, names, file names and figures corrected by hand; corrected transcripts committed in [transcripts/](https://github.com/kholliger13/project2-portfolio-app/tree/main/transcripts) |
 
 ## How AI work was checked
 
@@ -54,7 +55,7 @@ Run the automated checks and replay with `sh review.sh && python replay.py` from
 | PAYEMS vintages | [PAYEMS verification](https://github.com/kholliger13/project2-portfolio-app/blob/main/payems_verify.py) | Three ALFRED row checks, seven date and boundary cases, shuffled input and duplicate rejection pass |
 | Rates and live apps | `verify_rates_app.py`, `verify_asof_app.py` | Cutoffs, two-month PAYEMS trigger, missing values, wrong-vintage and HTML rejection, and caching pass |
 | Replay | [Replay script](https://github.com/kholliger13/project2-portfolio-app/blob/main/replay.py) | Both locked vetoes cleared (Section 5) |
-| Numbers audit | [verify_claims.py](https://github.com/kholliger13/project2-portfolio-app/blob/main/verify_claims.py) recomputes every headline figure cited in the README, memo, results and validation documents and fails the review if any differs. A self-test confirms it catches a changed number. | 283 claims pass. The self-test catches the altered figure. |
+| Numbers audit | [verify_claims.py](https://github.com/kholliger13/project2-portfolio-app/blob/main/verify_claims.py) recomputes every headline figure cited in the README, memo, results, validation documents and video transcripts and fails the review if any differs. A self-test confirms it catches a changed number. | 383 claims pass. The self-test catches the altered figure. |
 
 ## 2. Independent challenge
 

@@ -1,0 +1,37 @@
+Project 2 — Video 3: Committee decision
+Kayla Holliger · YouTube: https://youtu.be/Wf1JCalnJrA
+Transcribed with Otter.ai; tickers, names and figures corrected by hand.
+
+[00:01]
+Recording in progress. Hi, my name is Kayla Holliger, and this is Video 3 for Project 2, on the committee decision. Before this video started, I started my app and left it on the default settings: Six-fund CSV, All returns, 8% objective and a 20% reserve minimum.
+
+Going back to my README, before I start: I used OpenAI Codex to build, test and document this app, and Claude, from Anthropic, to review my plan, draft two supporting predictions and run one cold run. I wrote my locked prediction myself, without AI. The analysis and the decision are mine. This is education, not investment advice.
+
+From here, I'm going to focus on my app, because that is the purpose of this video, so we'll stay on this tab for the rest of the video.
+
+Committee, I'm asking for one decision today: would you approve a 25% pilot of this constrained process, with 75% staying in equal weight?
+
+The mandate, as you can see right here: six funds, QQQ, XLE, EWZ, LQD, TLT and FBMPX. At least 8% estimated annual return, at least 20% in LQD and TLT, fully invested, long-only, lowest volatility.
+
+I'll scroll down to the Recommended portfolio section. Using all 59 months of returns through September 2026, the process picks 20% QQQ, 25% XLE and 55% LQD: 8.31% estimated return at 11.43% volatility.
+
+Scrolling down to section 3, the Mandate verdicts: all three portfolios are scored on the same estimates. Equal weight passes, the constrained portfolio passes, and inverse volatility fails the return objective.
+
+So why 25%? The funded 25/75 blend estimates 9.58%, holds 38.8% in LQD and TLT, and has lower estimated volatility than equal weight: 12.90% versus 13.57%. I also tested the process historically. Weights fitted on the first 23 months and held for the next 36 earned 11.34% a year after costs, at 9.45% volatility. That cleared both of my vetoes: above 8%, and less volatile than equal weight. But equal weight earned more, 15.69%. So this process buys lower risk, not higher return. That tradeoff is why I'm asking for a limited pilot, not full adoption.
+
+Going beyond the project requirements, three things back these numbers beyond the required tests. First, an automated audit recomputes every figure in my memo and documents from the raw prices on every run. Second, a separate calculation, written without the optimizer code, reproduced all 53,130 mixes. Third, my partner reproduced the result from a fresh copy of the repository in about 46 seconds.
+
+Now a live stress on the input I distrust, with the driver attribution. I'm going to go to the sidebar, to Estimation window, and instead of All returns, click Last 36 months. Here's the input I distrust most. Same mandate, but the last 36 months only. LQD jumps from 55% to 80%, as you can see; the largest weight change shows plus 25 points. On the last 24 months, which I predicted before running, it's 60%. My attribution shows why: the weights are driven by the return estimates, the least reliable input in finance. The verdicts still pass, but the mix isn't stable.
+
+You can see Last 36 months selected as the estimation window. I'm going to switch back to All returns.
+
+Now a one-point miss on a single fund. Cutting XLE's estimate by one point drops the portfolio to 8.06%, still passing. But the base case only clears 8% by 0.31 points. That thin cushion is why I'll re-check monthly.
+
+Any one of four triggers sends this back to you. One: a fund's proposed weight moves more than 15 points in a month. Two: payrolls fall two months in a row on point-in-time data.
+
+[04:24]
+Three: the funded sleeve's estimate drops below 8%, or bonds below 20%. Four: after six months, the constrained portion earns under 8%, or is as volatile as equal weight. If trigger three or four fires, I'd recommend returning to equal weight, if it still passes the mandate, and rejecting the process.
+
+So my recommendation is a pilot. Approve 25% today, review monthly, and consider moving toward 50% only after six months of live results clear both tests. Do you approve? Thank you.
+
+[Recording stopped]

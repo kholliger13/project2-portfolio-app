@@ -1,0 +1,24 @@
+Project 2 — Video 1: How my system and thinking changed
+Kayla Holliger · YouTube: https://youtu.be/1ZOY_s3nh6o
+Transcribed with Otter.ai; tickers, names and figures corrected by hand.
+
+[00:01]
+Recording in progress. Hi, my name is Kayla Holliger, and this is my first video for Project 2, specifically on how my system and thinking changed. As you can see on the left here, I have Otter AI taking backup transcript notes for me. On the right, you see my terminal. But what I wanted to draw your attention to first was my repository for Project 2, specifically the README.
+
+Before I start, I want to acknowledge that I used OpenAI Codex to build, test and document this app, and Claude, from Anthropic, to review my plan, draft two supporting predictions and run one cold run. I wrote my locked prediction myself, without AI. The analysis and the decision are mine, and this is education, not investment advice. You can see that written here in my README.
+
+I'm going to scroll to the Work and evidence section of my repository. In Lab 13, my system was a static table. I compared three baselines against a mandate and got a pass or fail for each. It answered one question: which portfolio fits the rules today?
+
+I'm now going to get my app running. As you can see, I've already put in the code to get it running right here, so I'm just going to click the link to get it started, and here's my app. Just to briefly scroll through it, this is what it looks like.
+
+Lab 14 turned this table into an app, and the app changed my thinking. Same mandate: at least 8% estimated return and at least 20% in LQD and TLT. Switching from all 59 months to the last 36 moves LQD from 55% to 80%. Later, my own locked prediction for the last 24 months said LQD would fall. However, it rose to 60%. That's when my question changed from "What's the answer?" to "How much should a committee trust this answer?"
+
+I'm now going to point your attention to the Run from a clean checkout section of my repository. So the system changed with it. I added a historical replay with two vetoes, a cost stress, a point-in-time payroll signal, and two cold runs from GitHub. And I went past the project requirements to fix exactly what cost [me] points on Project 1: a numbers audit, so my documents can't disagree with my model, and a driver-attribution table that explains what changed and why.
+
+I'm now going to go to the validation and AI use document. I'll scroll through this quickly, and while I scroll, I can talk. One AI output I checked: while I was tightening my recommendation, Claude told me equal weight was a safe fallback that met the mandate, at a 10% estimated return with a third in bonds. However, I recomputed it on the 23-month estimates my replay was fitted on, and equal weight estimated only 1.88%, and my 25/75 pilot only 3.49%. Both fail the 8% screen at the sleeve level.
+
+So that changed my recommendation. I held funding, asked my professor how the screen applies, then re-tested on current estimates, where the pilot passes at 9.58%. The claim was right on one set of estimates and wrong on the other, which is exactly why I check AI output against the model, not against how confident it sounds.
+
+Going back to my README. The biggest change in my thinking: a passing verdict isn't the end of the analysis. It's the start of asking what would make it fail. Thank you.
+
+[Recording stopped]

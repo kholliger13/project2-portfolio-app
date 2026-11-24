@@ -1,0 +1,39 @@
+Project 2 — Video 2: Code walkthrough
+Kayla Holliger · YouTube: https://youtu.be/0vxQzGedWHc
+Transcribed with Otter.ai; tickers, names, file names and figures corrected by hand.
+
+[00:00]
+Recording in progress. Hi, my name is Kayla Holliger, and this is Video 2 for Project 2, the code walkthrough. As you can see on the left, I have Otter AI taking my backup transcript notes, and on the right I have a split terminal running. Before this video started, I opened the two terminal tabs, both in the project folder with the environment active.
+
+I'm first going to go to the README. I used OpenAI Codex to build, test and document this app, and Claude, from Anthropic, to review my plan, draft two supporting predictions and run one cold run. I wrote my locked prediction myself, without AI. The analysis and the decision are mine, and this is education, not investment advice.
+
+So, going to the README: a reviewer would start here. Create the environment, install the pinned requirements, then one line that runs every check and the replay. My partner Zachary did this from a fresh clone in about 46 seconds with no failures. I'll start that command now and walk through the code while it runs. As in my previous videos, I like to have these commands handy so they're easier to run for the sake of this video.
+
+[Runs: sh review.sh && python replay.py]
+
+While that runs, I'm going to walk you through app.py, which is right here. The app is app.py, a Streamlit web app. The sidebar holds the mandate: the estimation window, the 8% return objective and the 20% reserve floor. The math lives in shared engine files, so the app, the replay and the tests all use the same calculations.
+
+Just to draw your attention to it one more time and briefly scroll through it: here is my app, and the sequence just finished running. Both scripts completed successfully. At 10 bps, the constrained portfolio returned 11.34% net with 9.45% volatility. Equal weight returned 15.69% net with 9.96% volatility. The 25/75 blend's training-period estimated return was 3.49%, below the 8% sleeve requirement.
+
+Next, I'm going to draw your attention to portfolio_core.py, which loads prices.csv and turns monthly prices into returns. choose_window picks all months or the last 36. estimate_inputs annualizes each fund's return, volatility and correlations. optimize then searches every mix on the 5-point grid, 53,130 of them, drops any mix under 8% estimated return or under 20% in LQD and TLT, and keeps the one with the lowest volatility. If nothing qualifies, it returns a stop instead of a portfolio.
+
+Now back to app.py. Section 3 scores equal weight, inverse volatility and the constrained portfolio on the same estimates, so each one gets a pass or a fail and the rule behind it.
+
+Next, I'm going to open replay.py, right here. replay.py is the historical test. It fits weights on the first 23 months and holds them for the last 36. evaluate rebalances monthly to fixed targets, charges 10 basis points on one-way turnover, including the first purchase, and reports geometric annualized net return and volatility. The two vetoes are in the code: hold if the net return is below 8%, or if volatility is at least equal weight's.
+
+Next, I'm going to show verify_claims.py. The next two files I'm about to show, including verify_claims.py, go beyond the project requirements, and both target what cost [me] points on Project 1: figures that didn't match across documents, and no explanation of what drove a change. verify_claims.py recomputes every figure cited in my README, memo, results and validation documents straight from the model, and fails the review if any differ. To prove it can actually fail, it has a self-test, which I'm going to show in the second terminal of my split terminal.
+
+[Runs: python verify_claims.py --self-test]
+
+It copies a document, changes 8.31% to 8.32%, and the audit catches it. And you can see right here, the self-test passed. The fail line was expected. It confirms that the verifier caught the deliberate change from 8.31% to 8.32%. So that just ran and proved my point. Now I'm going to show the next file.
+
+[04:48]
+The driver attribution, attribution.py, explains why the answer moves. It swaps the 24-month return estimates, volatilities and correlations into the 59-month fit, in all six possible orders, and averages each input's effect. Return estimates added 10 points of LQD, correlations took 5 back, and the volatilities changed the risk, not the weights. The pieces add up exactly to the actual change.
+
+And then I'm going to show this one. The point-in-time signal is PAYEMS — P-A-Y-E-M-S — nonfarm payrolls. payems_verify.py checks that each decision only uses the vintage published before the decision date, so the signal never sees revised data from the future. Two negative months in a row send the pilot back to the committee.
+
+Since we've gone through all those files, excuse how fast I was talking; I wanted to make sure I was able to show all of them. If for whatever reason you weren't able to see an entire file, my repository will be linked in my submission, and the full list of files is right here, along with everything else in my repository.
+
+Back to the run on my split terminal. Every check passed, including the numbers audit, and the last line reads: PASS, replay clears both vetoes. That's the whole system, reproducible from one README. Thank you.
+
+[Recording stopped]

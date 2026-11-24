@@ -1,19 +1,23 @@
-"""Check portfolio figures against the bundled data and their Markdown citations."""
+"""Check portfolio figures against the bundled data and their written citations."""
 
 import argparse
 import csv
 from datetime import date, datetime
+from math import factorial
 import re
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from attribution import CASES, analyze
-from portfolio import equal_weights, portfolio_volatility
+from attribution import CASES, INPUTS, analyze
+from portfolio import GRID_UNITS, equal_weights, portfolio_volatility
 from portfolio_core import (
     OBJECTIVE, RESERVE_ELIGIBLE, RESERVE_MIN, build_covariance, choose_window,
     estimate_inputs, load_prices, monthly_returns, optimize,
 )
 from replay import TRADE_COST, evaluate, minimum_constrained_share
+
+SINGLE_FUND_CUT = 0.01
+SELF_TEST_INCREMENT = 0.0001
 
 ROOT = Path(__file__).resolve().parent
 DOCUMENTS = {
@@ -25,6 +29,9 @@ DOCUMENTS = {
     "replay record": "LOCKED_CHANGED_INPUT.md",
     "partner swap": "docs/partner-swap.md",
     "driver attribution": "docs/driver-attribution.md",
+    "video 1": "transcripts/transcript-video-1.txt",
+    "video 2": "transcripts/transcript-video-2.txt",
+    "video 3": "transcripts/transcript-video-3.txt",
 }
 
 
@@ -57,6 +64,12 @@ def model_values():
         "last PAYEMS month": max(measured_months).strftime("%B %Y"),
         "latest PAYEMS vintage": f"{latest_vintage:%B} {latest_vintage.day}, {latest_vintage.year}",
         "return objective": OBJECTIVE,
+        "grid step in points": 100 / GRID_UNITS,
+        "attribution orders": factorial(len(INPUTS)),
+        "fund count": "six" if len(returns.columns) == 6 else str(len(returns.columns)),
+        "pilot constrained points": pilot_share * 100,
+        "pilot equal weight points": (1 - pilot_share) * 100,
+        "one-point shock": SINGLE_FUND_CUT * 100,
         "bond floor": RESERVE_MIN,
         "locked replay cost": round(TRADE_COST * 10_000),
         "pilot constrained share": pilot_share,
@@ -112,7 +125,7 @@ def model_values():
             one_point_cuts = {}
             for ticker in mean.index:
                 shocked = mean.copy()
-                shocked[ticker] -= 0.01
+                shocked[ticker] -= SINGLE_FUND_CUT
                 one_point_cuts[ticker] = select_fit(shocked, covariance)
             values["all single cuts feasible"] = all(f["found"] for f in one_point_cuts.values())
             values["XLE cut lowest return"] = min(one_point_cuts, key=lambda t: one_point_cuts[t]["return"]) == "XLE"
@@ -164,6 +177,13 @@ def model_values():
         for metric, effect in row.items():
             values[f"{name} {metric} change"] = float(effect * 100)
     values["correlation LQD reduction"] = -values["Correlations LQD weight change"]
+    values["LQD points from return estimates"] = values["Return estimates LQD weight change"]
+    values["third in bonds"] = abs(values["59 equal bonds"] - 1 / 3) < 1e-12
+    values["self-test altered return"] = values["59 return"] + SELF_TEST_INCREMENT
+    memo = (ROOT / DOCUMENTS["memo"]).read_text(encoding="utf-8")
+    values["weight trigger points"] = int(re.search(r"moves more than (\d+) points", memo)[1])
+    values["payroll trigger months"] = re.search(r"negative for (\w+) consecutive months", memo)[1]
+    values["live review months"] = re.search(r"After (\w+) months,", memo)[1]
     return values
 
 
@@ -273,12 +293,49 @@ CITATIONS = {
         ("The 25/75 blend estimated", "23 blend return=3.4864%;23 blend bonds=37.50%"),
         ("training estimate stayed", "23 blend return=3.49%"),
     ],
+    "video 1": [
+        ("Lab 14 turned this table", "return objective=8%;bond floor=20%;full return window=59;replay months=36;59 LQD weight=55%;36 LQD weight=80%;short window months=24;24 LQD weight=60%"),
+        ("Claude told me equal weight", "59 equal return=10%;third in bonds=a third in bonds;training months=23;23 equal return=1.88%;pilot constrained points=25;pilot equal weight points=75;23 blend return=3.49%;return objective=8%"),
+        ("I held funding, asked my professor", "59 blend return=9.58%"),
+    ],
+    "video 2": [
+        ("My partner Zachary did this", "partner cold-run seconds=46"),
+        ("The sidebar holds the mandate", "return objective=8%;bond floor=20%"),
+        ("Both scripts completed successfully", "locked replay cost=10;10 bps constrained return=11.34%;10 bps constrained volatility=9.45%;10 bps equal return=15.69%;10 bps equal volatility=9.96%;pilot constrained points=25;pilot equal weight points=75;23 blend return=3.49%;return objective=8%"),
+        ("choose_window picks all months", "replay months=36;grid step in points=5;59 mixes_tested=53,130;return objective=8%;bond floor=20%"),
+        ("replay.py is the historical test", "training months=23;replay months=36;locked replay cost=10;return objective=8%"),
+        ("It copies a document", "59 return=8.31%;self-test altered return=8.32%;59 return=8.31%;self-test altered return=8.32%"),
+        ("The driver attribution, attribution.py", "attribution shorter months=24;attribution baseline months=59;attribution orders=six;LQD points from return estimates=10;correlation LQD reduction=5"),
+        ("Two negative months in a row", "payroll trigger months=Two"),
+    ],
+    "video 3": [
+        ("started my app and left it", "fund count=Six;return objective=8%;bond floor=20%"),
+        ("Committee, I'm asking", "pilot constrained share=25%;pilot equal weight share=75%"),
+        ("The mandate, as you can see", "fund count=six;return objective=8%;bond floor=20%"),
+        ("Using all 59 months of returns through", "full return window=59;last price month=September 2026;59 QQQ weight=20%;59 XLE weight=25%;59 LQD weight=55%;59 return=8.31%;59 volatility=11.43%"),
+        ("The funded 25/75 blend estimates", "pilot constrained share=25%;pilot constrained points=25;pilot equal weight points=75;59 blend return=9.58%;59 blend bonds=38.8%;59 blend volatility=12.90%;59 equal volatility=13.57%;training months=23;replay months=36;10 bps constrained return=11.34%;10 bps constrained volatility=9.45%;return objective=8%;10 bps equal return=15.69%"),
+        ("reproduced all 53,130 mixes", "59 mixes_tested=53,130;partner cold-run seconds=46"),
+        ("Now a live stress on the input", "replay months=36;replay months=36;59 LQD weight=55%;36 LQD weight=80%;36 LQD increase=25 points;short window months=24;24 LQD weight=60%"),
+        ("selected as the estimation window", "replay months=36"),
+        ("Now a one-point miss", "one-point shock=one;one-point shock=one;XLE cut return=8.06%;return objective=8%;base cushion=0.31 points"),
+        ("Any one of four triggers", "weight trigger points=15;payroll trigger months=two"),
+        ("the funded sleeve's estimate drops", "return objective=8%;bond floor=20%;live review months=six;return objective=8%"),
+        ("So my recommendation is a pilot", "pilot constrained share=25%;halfway constrained share=50%;live review months=six"),
+    ],
 }
 
 
 def formatted_value(key, value, cited):
     if isinstance(value, str):
+        if key in {"fund count", "payroll trigger months"} and cited[:1].isupper():
+            return value.capitalize()
         return value
+    if key == "third in bonds":
+        return cited if value else "False"
+    if key == "attribution orders":
+        return "six" if value == 6 else str(value)
+    if key == "one-point shock":
+        return "one" if value == 1 else str(value)
     number = re.match(r"[+−-]?\d[\d,]*(?:\.(\d+))?", cited)
     if number is None:
         if isinstance(value, bool):
@@ -286,7 +343,7 @@ def formatted_value(key, value, cited):
         return cited if value == 0 else str(value)
     decimals = len(number[1] or "")
     if key == "correlation LQD reduction":
-        return f"{value:.{decimals}f} points"
+        return f"{value:.{decimals}f}" + cited[number.end():]
     if key.endswith(" change"):
         return f"{value:+.{decimals}f}"
     if cited.endswith("%"):
@@ -360,16 +417,17 @@ def self_test(values):
     if original.count(before) != 1:
         print("FAIL: self-test could not identify the base-case citation.")
         return 1
+    altered = formatted_value("self-test altered return", values["self-test altered return"], "8.32%")
     with TemporaryDirectory() as directory:
         copy = Path(directory) / path.name
-        copy.write_text(original.replace(before, before.replace("8.31%", "8.32%")),
+        copy.write_text(original.replace(before, before.replace("8.31%", altered)),
                         encoding="utf-8")
         _, failures = audit(values, {document: copy}, only=document)
     expected = [(document, "Base case (all 59 months", "59 return")]
     if failures != expected:
         print(f"FAIL: self-test expected exactly one changed citation, got {failures!r}")
         return 1
-    print("PASS: self-test caught the change from 8.31% to 8.32%.")
+    print(f"PASS: self-test caught the change from 8.31% to {altered}.")
     return 0
 
 

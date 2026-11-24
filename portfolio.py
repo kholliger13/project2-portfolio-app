@@ -128,6 +128,9 @@ def meets_objective(portfolio_return, objective):
     return portfolio_return >= objective
 
 
+GRID_UNITS = 20
+
+
 def search_portfolio(sleeves, correlations, objective, reserve_minimum, return_details=False):
     """Return the least volatile feasible 5-percentage-point mix, or None.
 
@@ -149,9 +152,9 @@ def search_portfolio(sleeves, correlations, objective, reserve_minimum, return_d
     best = None
     tested = qualifying = 0
     maximum = None
-    for units in compositions(20, len(sleeves)):
+    for units in compositions(GRID_UNITS, len(sleeves)):
         tested += 1
-        weights = [value / 20 for value in units]
+        weights = [value / GRID_UNITS for value in units]
         result = expected_return(weights, sleeves)
         reserve = reserve_eligible_weight(weights, sleeves)
         # Tolerance only absorbs floating-point arithmetic at exact boundaries.
