@@ -30,6 +30,8 @@ Video 1 exceeds the recorded 3:00 limit by 0:40. Video 3 exceeds the recorded 5:
 
 ## Frozen-file checklist
 
+Frozen at commit 66e79db9073b1cb9f5cbd241ed906ea12e14eeb9.
+
 - ✓ <https://github.com/kholliger13/project2-portfolio-app/blob/main/README.md>
 - ✓ <https://github.com/kholliger13/project2-portfolio-app/blob/main/requirements.txt>
 - ✓ <https://github.com/kholliger13/project2-portfolio-app/blob/main/app.py>
