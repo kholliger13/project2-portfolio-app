@@ -20,11 +20,11 @@ The [GitHub README handoff](https://github.com/kholliger13/project2-portfolio-ap
 
 Video 1 exceeds the recorded 3:00 limit by 0:40. Video 3 exceeds the recorded 5:00 limit by 1:30.
 
-### Timestamp indices (estimated from transcript position; Otter marks exact)
+### Timestamp indices (estimated from transcript position)
 
 - **Video 1** · 0:25 Before I start · 0:55 In Lab 13 · 1:28 Lab 14 turned · 2:06 So the system changed · 2:40 One AI output I checked · 3:29 The biggest change
-- **Video 2** · 0:23 I used OpenAI · 0:42 a reviewer would start here · 1:12 The app is app.py · 1:52 portfolio_core · 2:30 replay.py is the historical test · 2:55 verify_claims · 4:48 explains why the answer moves (Otter) · 4:08 point-in-time signal · 4:45 Back to the run
-- **Video 3** · 0:29 I used OpenAI · 1:13 Committee, I'm asking · 1:26 The mandate · 2:23 why 25% · 3:19 three things back these numbers · 4:12 input I distrust most · 5:03 one-point miss · 5:24 Any one of four triggers · 4:24 Three: the funded sleeve (Otter) · 6:13 my recommendation is
+- **Video 2** · 0:23 I used OpenAI · 0:42 a reviewer would start here · 1:12 The app is app.py · 1:52 portfolio_core · 2:30 replay.py is the historical test · 2:55 verify_claims · 3:46 explains why the answer moves · 4:08 point-in-time signal · 4:45 Back to the run
+- **Video 3** · 0:29 I used OpenAI · 1:13 Committee, I'm asking · 1:26 The mandate · 2:23 why 25% · 3:19 three things back these numbers · 4:12 input I distrust most · 5:03 one-point miss · 5:24 Any one of four triggers · 5:43 Three: the funded sleeve · 6:13 my recommendation is
 
 **Access confirmation:** All three videos fetched successfully without login on November 23, 2026 (yt-dlp, no cookies; availability: unlisted for all three). The repository is public at <https://github.com/kholliger13/project2-portfolio-app>.
 
