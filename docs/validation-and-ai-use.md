@@ -2,6 +2,35 @@
 
 **AI use.** I used OpenAI Codex to implement, test and document the app, the replay and this repository. I used Claude (Anthropic) to review my plan, draft the 23/36 replay prediction and the 50 bp cost prediction at my request, and run one independent cold run of the README. **I wrote the Locked Changed-Input Record prediction (24-month window) myself, without AI.** Claude suggested the input to test and the template. The prediction values and reasoning are mine. The analysis and the decision are mine. This is education, not investment advice.
 
+## Material AI uses
+
+| Tool / model / version | Dates | Use | Disposition |
+|---|---|---|---|
+| OpenAI Codex, GPT-6.2-Sol (default) | Nov 17–23, 2026 | Implemented, tested and documented the app, replay, numbers audit and driver attribution | **Accepted** after `review.sh`, the numbers audit and two cold runs passed |
+| OpenAI Codex | Nov 17, 2026 | Reported a local run as the partner cold run | **Rejected.** It reused the existing environment and never started from GitHub; replaced by Zachary's run from the published repository |
+| OpenAI Codex | Nov 23, 2026 | Stopped the audit build after finding the LQD wording mismatch | **Accepted.** The sentence was corrected before the audit was added |
+| Claude (Anthropic), Claude Opus 5.5 | Nov 17, 2026 | Drafted the 23/36 replay prediction | **Adopted as supporting evidence.** The return call was right; the volatility call was wrong |
+| Claude Opus 5.5 | Nov 17, 2026 | Claimed equal weight was a mandate-compliant fallback | **Rejected after checking.** Equal weight estimates only 1.88% on the 23-month fit |
+| Claude Opus 5.5 | Nov 17, 2026 | Drafted the 50 bp cost prediction | **Adopted.** The prediction matched |
+| Claude Opus 5.5 | Nov 17, 2026 | Independent cold run of `ba706d9` | **Accepted** as a second run, alongside Zachary's |
+| Claude Opus 5.5 | Nov 19, 2026 | Framed the 25/75 pilot as failing the sleeve screen (3.49%) | **Modified.** That applies to the 2021–2023 training estimates; on current estimates the sleeve passes at 9.58% |
+| Claude Opus 5.5 | Nov 19, 2026 | Suggested the 24-month input and the prediction template | **Accepted.** The prediction values and reasoning are mine, written AI-off |
+| Claude Opus 5.5 | Nov 19, 2026 | Wrote "LQD stayed near −0.4%" | **Rejected.** Caught by Codex's recomputation of every cited figure while building the numbers audit; corrected to −0.9% → −0.4% before the audit was committed |
+| Claude Opus 5.5 | Nov 23, 2026 | Proposed the numbers audit and Shapley driver-attribution designs | **Accepted.** Built by Codex and verified by `review.sh` |
+| Claude Opus 5.5 and OpenAI Codex | Nov 17–23, 2026 | Cross-verification | **Accepted.** Each tool's results were reproduced independently by the other before being cited |
+
+## How AI work was checked
+
+| Check | What it guards against | Evidence |
+|---|---|---|
+| Numbers audit ([`verify_claims.py`](https://github.com/kholliger13/project2-portfolio-app/blob/main/verify_claims.py)) | AI-written figures that don't match the model | Every cited figure recomputed on each review run; the self-test fails on a changed 8.31% |
+| Independent recalculation | Errors in the AI-written optimizer | All 53,130 mixes recomputed without the optimizer code; same winners and counts ([`MODEL_VALIDATION.md`](https://github.com/kholliger13/project2-portfolio-app/blob/main/MODEL_VALIDATION.md)) |
+| Point-in-time tests | AI-built PAYEMS code using future data | ALFRED rows, date edge cases, wrong-vintage rejection ([`payems_verify.py`](https://github.com/kholliger13/project2-portfolio-app/blob/main/payems_verify.py), [`verify_rates_app.py`](https://github.com/kholliger13/project2-portfolio-app/blob/main/verify_rates_app.py)) |
+| Recompute before committing | Claude's pilot figures entering documents unchecked | Codex re-derived 9.58%, 13.47%, 12.70% and 38.8% from [`prices.csv`](https://github.com/kholliger13/project2-portfolio-app/blob/main/prices.csv) under a STOP rule |
+| Fresh-clone reproduction | Codex's results being wrong or environment-dependent | Claude reproduced the replay, 50 bp and 24-month results exactly from GitHub |
+| Lock timing | A prediction written after the result | `ee774a4` committed 4:12:42 PM ET on Nov 19, 2026; the run began 4:14:18 PM |
+| Human cold run | An app that only works on my machine | Zachary's fresh clone of `add3cce`: no failure, about 46 seconds |
+
 [Project 2 repository](https://github.com/kholliger13/project2-portfolio-app)
 
 ## Sources and as-of boundary
@@ -25,7 +54,7 @@ Run the automated checks and replay with `sh review.sh && python replay.py` from
 | PAYEMS vintages | [PAYEMS verification](https://github.com/kholliger13/project2-portfolio-app/blob/main/payems_verify.py) | Three ALFRED row checks, seven date and boundary cases, shuffled input and duplicate rejection pass |
 | Rates and live apps | `verify_rates_app.py`, `verify_asof_app.py` | Cutoffs, two-month PAYEMS trigger, missing values, wrong-vintage and HTML rejection, and caching pass |
 | Replay | [Replay script](https://github.com/kholliger13/project2-portfolio-app/blob/main/replay.py) | Both locked vetoes cleared (Section 5) |
-| Numbers audit | [verify_claims.py](https://github.com/kholliger13/project2-portfolio-app/blob/main/verify_claims.py) recomputes every headline figure cited in the README, memo, results and validation documents and fails the review if any differs. A self-test confirms it catches a changed number. | 261 claims pass. The self-test catches the altered figure. |
+| Numbers audit | [verify_claims.py](https://github.com/kholliger13/project2-portfolio-app/blob/main/verify_claims.py) recomputes every headline figure cited in the README, memo, results and validation documents and fails the review if any differs. A self-test confirms it catches a changed number. | 283 claims pass. The self-test catches the altered figure. |
 
 ## 2. Independent challenge
 

@@ -63,6 +63,25 @@ def model_values():
         "pilot equal weight share": 1 - pilot_share,
         "halfway constrained share": halfway_share,
     }
+    lock_record = (ROOT / DOCUMENTS["24-month record"]).read_text(encoding="utf-8")
+    lock_line = next(line for line in lock_record.splitlines()
+                     if line.startswith("**Pre-run GitHub publication:**"))
+    commit_time, start_time = re.findall(r"\b(\d{1,2}:\d{2}:\d{2}) p\.m\.", lock_line)
+    partner_record = (ROOT / DOCUMENTS["partner swap"]).read_text(encoding="utf-8")
+    elapsed = re.search(r"(?m)^\| Elapsed time \| About (\d+) seconds", partner_record)
+    if elapsed is None:
+        raise ValueError("Missing partner cold-run duration.")
+    stress_costs = (0, 10, 25, 50)
+    values.update({
+        "lock commit time": commit_time,
+        "locked run start time": start_time,
+        "partner cold-run seconds": int(elapsed[1]),
+        "training months": len(returns.head(23)),
+        "replay months": len(returns.iloc[23:]),
+        "short window months": len(returns.tail(24)),
+        "training years": f"{returns.index[0].year}–{returns.index[22].year}",
+        "highest tested cost": max(stress_costs),
+    })
     windows = {59: returns, 36: choose_window(returns, 36),
                24: returns.tail(24), 23: returns.head(23)}
     for months, window in windows.items():
@@ -114,7 +133,7 @@ def model_values():
                 values["23 equal return"], fit["return"]
             )
             evaluation = returns.iloc[23:]
-            for cost in (0, 10, 25, 50):
+            for cost in stress_costs:
                 constrained = evaluate(evaluation, target, cost / 10_000)
                 benchmark = evaluate(evaluation, equal, cost / 10_000)
                 for name, (net, risk) in (("constrained", constrained), ("equal", benchmark)):
@@ -125,7 +144,7 @@ def model_values():
         values[f"{cost} bps vetoes cleared"] for cost in (0, 10, 25)
     )
     values["all tested costs clear vetoes"] = all(
-        values[f"{cost} bps vetoes cleared"] for cost in (0, 10, 25, 50)
+        values[f"{cost} bps vetoes cleared"] for cost in stress_costs
     )
     values["24 return increase"] = values["24 return"] - values["59 return"]
     values["24 volatility decrease"] = values["59 volatility"] - values["24 volatility"]
@@ -193,10 +212,22 @@ CITATIONS = {
         ("The separate [AI-off", "24 return=8.79%;24 volatility=6.70%;24 LQD weight=60%;24 blend return=12.70%"),
     ],
     "validation": [
+        ("Drafted the 23/36 replay prediction", "training months=23;replay months=36"),
+        ("Claimed equal weight was a mandate-compliant fallback |", "23 equal return=1.88%;training months=23"),
+        ("Drafted the 50 bp cost prediction", "highest tested cost=50"),
+        ("Framed the 25/75 pilot", "23 blend return=3.49%;training years=2021–2023;59 blend return=9.58%"),
+        ("Suggested the 24-month input and the prediction template", "short window months=24"),
+        ("corrected to −0.9%", "59 LQD estimate=−0.9%;24 LQD estimate=−0.4%"),
+        ("| Numbers audit ([", "59 return=8.31%"),
+        ("| Independent recalculation | Errors", "59 mixes_tested=53,130"),
+        ("| Recompute before committing |", "59 blend return=9.58%;36 blend return=13.47%;24 blend return=12.70%;59 blend bonds=38.8%"),
+        ("| Fresh-clone reproduction |", "highest tested cost=50;short window months=24"),
+        ("| Lock timing |", "lock commit time=4:12:42;locked run start time=4:14:18"),
+        ("| Human cold run |", "partner cold-run seconds=46"),
         ("**Fund prices.**", "price download date=October 22, 2026;full return window=59;first return month=November 2021;last price month=September 2026"),
         ("**PAYEMS.** Captured ALFRED vintages", "first PAYEMS month=August 2024;last PAYEMS month=September 2026;latest PAYEMS vintage=October 2, 2026"),
         ("**Decision as-of date for fund prices.**", "last price month=September 2026"),
-        ("| Independent recalculation |", "59 mixes_tested=53,130;59 mixes_qualifying=22,829;36 mixes_qualifying=36,889"),
+        ("| Independent recalculation | All", "59 mixes_tested=53,130;59 mixes_qualifying=22,829;36 mixes_qualifying=36,889"),
         ("The main weakness is window sensitivity", "59 LQD weight=55%;36 LQD weight=80%"),
         ("Base case (all 59 months", "59 QQQ weight=20%;59 XLE weight=25%;59 LQD weight=55%;59 return=8.31%;59 volatility=11.43%"),
         ("| Estimates |", "all single cuts feasible=Still feasible every time;LQD cut QQQ weight=15%;LQD cut XLE weight=30%;LQD cut LQD weight=55%;XLE cut lowest return=gives the lowest estimated return;XLE cut return=8.06%;base cushion=0.31"),
@@ -248,7 +279,7 @@ CITATIONS = {
 def formatted_value(key, value, cited):
     if isinstance(value, str):
         return value
-    number = re.match(r"[+-]?\d[\d,]*(?:\.(\d+))?", cited)
+    number = re.match(r"[+−-]?\d[\d,]*(?:\.(\d+))?", cited)
     if number is None:
         if isinstance(value, bool):
             return cited if value else "False"
@@ -259,7 +290,8 @@ def formatted_value(key, value, cited):
     if key.endswith(" change"):
         return f"{value:+.{decimals}f}"
     if cited.endswith("%"):
-        return f"{value:.{decimals}%}"
+        formatted = f"{value:.{decimals}%}"
+        return formatted.replace("-", "−") if cited.startswith("−") else formatted
     if key.endswith((" increase", " decrease", " cushion")):
         return f"{value * 100:.{decimals}f}" + cited[number.end():]
     if key.endswith(" weight"):
@@ -290,8 +322,8 @@ def audit(values, overrides=None, only=None):
             cursor = 0
             for key, cited in claims:
                 pattern = re.escape(cited)
-                if re.match(r"[+-]?\d", cited):
-                    pattern = r"(?<![\d.,+-])" + pattern + r"(?![\d]|[.,]\d)"
+                if re.match(r"[+−-]?\d", cited):
+                    pattern = r"(?<![\d.,+−-])" + pattern + r"(?![\d]|[.,]\d)"
                 match = re.search(pattern, passage[cursor:])
                 if match:
                     cursor += match.end()
